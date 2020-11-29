@@ -1,0 +1,15 @@
+.friendsTitle {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+.friends {
+    display: flex;
+    justify-content: space-between;
+}
+
+.friends a.activeLink {
+    color: gold;
+}

@@ -1,0 +1,13 @@
+.side{
+
+    background-color: gray;
+    padding: 20px;
+}
+
+.block{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
