@@ -1,7 +1,5 @@
-import {addNewPostTextActionCreator, addPostActionCreator} from "./profile_reducer";
+import {ActionsTypes} from "./redux-store";
 
-export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof addNewPostTextActionCreator>
-    | ReturnType<typeof addNewMessageActionCreator> | ReturnType<typeof addNewMessageTextActionCreator>
 
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 const SEND_MESSAGE = 'SEND-MESSAGE';
@@ -58,31 +56,32 @@ let initialState={
         ]
     }
 export const dialogsReducer = (state: DialogsPageType=initialState, action: ActionsTypes) => {
-    switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-TEXT':
-            state.newMessageText = action.newMessage
-            return state
-        case 'SEND-MESSAGE':
+    let stateCopy={...state,messages:[...state.messages]}
+       switch (action.type) {
+        case UPDATE_NEW_MESSAGE_TEXT:
+            stateCopy.newMessageText = action.messageBody
+            return stateCopy
+
+        case SEND_MESSAGE:
             let messageBody = state.newMessageText;
-            state.newMessageText = '';
-            state.messages.push({id: 6, message: messageBody});
-            return state
+            stateCopy.newMessageText = '';
+            stateCopy.messages.push({id: 6, message: messageBody});
+            return stateCopy
         default:
             return state
     }
 
 }
-export let addNewMessageTextActionCreator = (newMessage: string) => {
+export let addNewMessageTextActionCreator = (messageBody: string) => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
-        newMessage: newMessage
-    } as const
-
-}
-export let addNewMessageActionCreator = (messageBody: string) => {
-    return {
-        type: SEND_MESSAGE,
         messageBody: messageBody
+    } as const
 
+}
+export let addNewMessageActionCreator = () => {
+    return {
+        type: SEND_MESSAGE
     } as const
 }
+

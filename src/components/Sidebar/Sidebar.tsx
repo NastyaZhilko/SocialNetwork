@@ -3,17 +3,17 @@ import s from './Sidebar.module.css';
 import Friends from "./Friends/Friends";
 import {SidebarType} from "../../Redux/store";
 
-export type MySidebarType={
+/*export type MySidebarType={
     sidebar: SidebarType
-}
-const Sidebar = (props: MySidebarType) => {
+}*/
+const Sidebar = (/*props: MySidebarType*/) => {
 
     return (
         <nav className={s.side}>
             <div className={s.block}>
-                <Friends
-                    sidebar={props.sidebar}
-                    />
+                {/*<Friends
+                    sidebar={sidebar}
+                    />*/}
             </div>
         </nav>
     )

@@ -1,9 +1,8 @@
-import {addNewMessageActionCreator, addNewMessageTextActionCreator} from "./dialogs_reducer";
+import {ActionsTypes} from "./redux-store";
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof addNewPostTextActionCreator>
-    | ReturnType<typeof addNewMessageActionCreator> | ReturnType<typeof addNewMessageTextActionCreator>
+
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
@@ -24,27 +23,33 @@ let initialState = {
 
 export const profileReducer = (state: ProfilePageType=initialState, action: ActionsTypes) => {
     switch (action.type) {
-        case "ADD-POST":
+        case "ADD-POST": {
             const newPost: PostsType = {
                 id: 3,
                 message: state.newPostText,
                 howManyLikes: 0
             };
-            state.posts.push(newPost)
-            state.newPostText = '';
-            return state;
-        case "UPDATE-NEW-POST-TEXT":
-            state.newPostText = action.newText;
-            return state;
+            let stateCopy = {...state}
+            stateCopy.posts = [...state.posts]
+            stateCopy.posts.push(newPost)
+            stateCopy.newPostText = '';
+            return stateCopy;
+        }
+        case "UPDATE-NEW-POST-TEXT": {
+            let stateCopy = {...state}
+            stateCopy.newPostText = action.newText;
+            return stateCopy;
+        }
         default:
             return state;
+
     }
 }
 
-export let addPostActionCreator = (newPost: string) => {
+export let addPostActionCreator = () => {
     return {
-        type: ADD_POST,
-        newPost: newPost
+        type: ADD_POST
+
     } as const
 
 }
