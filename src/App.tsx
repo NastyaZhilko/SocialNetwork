@@ -11,6 +11,8 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import {StoreType} from "./Redux/redux-store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Dialogs from "./components/Dialogs/Dialogs";
+import Users from "./components/Users/Users";
+import UsersContainer from "./components/Users/UsersContainer";
 
 /*type PropsType ={
     store: StoreType
@@ -30,8 +32,10 @@ const App = () => {
                     <Route path='/music' component={Music}/>
                     <Route path='/news' component={News}/>
                     <Route path='/settings' component={Settings}/>
-                    <Route exact path='/dialogs' render={() => <DialogsContainer/>}/>
+
+                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                     <Route path='/profile' render={() => <Profile/>}/>
+                    <Route path='/users' render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>)

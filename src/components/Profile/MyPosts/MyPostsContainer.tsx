@@ -2,10 +2,10 @@ import React from "react";
 import {addNewPostTextActionCreator, addPostActionCreator} from "../../../Redux/profile_reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {StateType} from "../../../Redux/store";
 import {Dispatch} from "redux";
+import {StoreType} from "../../../Redux/redux-store";
 
-let mapStateToProps=(state: StateType)=>{
+let mapStateToProps=(state: StoreType)=>{
     return{
         profilePage: state.profilePage
     }
