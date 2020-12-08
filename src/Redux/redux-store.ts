@@ -1,4 +1,4 @@
-import {combineReducers, createStore, Dispatch} from "redux";
+import {combineReducers, createStore, Dispatch, Store} from "redux";
 import {addNewPostTextActionCreator, addPostActionCreator, ProfilePageType, profileReducer} from "./profile_reducer";
 import {sidebarReducer, SidebarType} from "./sidebar_reducer";
 import {
@@ -29,7 +29,8 @@ let reducers = combineReducers(
 );
 
 export type AppStateType = ReturnType<typeof reducers>
-export let store: StoreType = createStore(reducers);
-//@ts-ignore
-window.store=store;
+export let store: Store = createStore(reducers);
+
+type Window  = typeof window  & {store: Store}
+(window as Window).store=store;
 export default store;

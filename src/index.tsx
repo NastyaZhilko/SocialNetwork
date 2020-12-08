@@ -9,8 +9,7 @@ import store from "./Redux/redux-store";
     ReactDOM.render(
         <BrowserRouter>
             <Provider
-                //@ts-ignore
-                store={store}>
+               store={store}>
                 <App />
             </Provider>
         </BrowserRouter>,

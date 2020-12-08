@@ -14,14 +14,14 @@ export type PostsType = {
 }
 
 let initialState = {
-        posts: [
-            {id: 1, message: 'Hi, how are you?', howManyLikes: 10},
-            {id: 2, message: 'It is my first post?', howManyLikes: 15}
-        ],
-        newPostText: ''
-    };
+    posts: [
+        {id: 1, message: 'Hi, how are you?', howManyLikes: 10},
+        {id: 2, message: 'It is my first post?', howManyLikes: 15}
+    ],
+    newPostText: 'New post'
+};
 
-export const profileReducer = (state: ProfilePageType=initialState, action: ActionsTypes) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case "ADD-POST":
             const newPost: PostsType = {
@@ -29,14 +29,16 @@ export const profileReducer = (state: ProfilePageType=initialState, action: Acti
                 message: state.newPostText,
                 howManyLikes: 0
             };
-            return {...state,
-                posts:[...state.posts, newPost],
-                newPostText : ''
+            return {
+                ...state,
+                posts: [...state.posts, newPost],
+                newPostText: ''
             }
 
         case "UPDATE-NEW-POST-TEXT":
-            return  {...state,
-                newPostText : action.newText
+            return {
+                ...state,
+                newPostText: action.newText
             }
         default:
             return state;
