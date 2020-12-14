@@ -7,7 +7,7 @@ import {Dispatch} from "redux";
 
 let mapStateToProps=(state: StoreType)=>{
     return{
-        usersPage: state.usersPage
+        usersPage: state.usersPage.users
     }
 }
 let mapDispatchToProps=(dispatch: Dispatch)=>{
