@@ -7,7 +7,15 @@ import {
     DialogsPageType,
     dialogsReducer
 } from "./dialogs_reducer";
-import {followAC, setUsersAC, unFollowAC, UsersPageType, usersReducers} from "./users_reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    unFollowAC,
+    UsersPageType,
+    usersReducers
+} from "./users_reducer";
 
 
 export type ActionsTypes =
@@ -18,6 +26,8 @@ export type ActionsTypes =
     | ReturnType<typeof followAC>
     | ReturnType<typeof unFollowAC>
     | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 
 export type StoreType = {
