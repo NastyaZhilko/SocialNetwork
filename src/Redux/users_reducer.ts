@@ -5,6 +5,8 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT='SET-TOTAL-USERS-COUNT'
+const TOGGLE_IS_FETCHING='TOGGLE-IS-FETCHING'
+
 export type PhotosType = {
     small: string
     large: string
@@ -22,12 +24,14 @@ export type UsersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching:boolean
 }
-let initialState = {
+let initialState: UsersPageType= {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 export const usersReducers = (state: UsersPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
@@ -59,26 +63,30 @@ export const usersReducers = (state: UsersPageType = initialState, action: Actio
 
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.count}
+        case TOGGLE_IS_FETCHING:
+            return {...state, isFetching: action.isFetching}
 
         default:
             return state
     }
 }
 
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return {type: FOLLOW, userId} as const
 }
-export const unFollowAC = (userId: number) => {
+export const unFollow = (userId: number) => {
     return {type: UNFOLLOW, userId} as const
 }
-export const setUsersAC = (users: Array<UsersType>) => {
+export const setUsers = (users: Array<UsersType>) => {
     return {type: SET_USERS, users} as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {type: SET_CURRENT_PAGE, currentPage} as const
 }
-export const setTotalUsersCountAC = (totalUsersCount: number) => {
+export const setTotalUsersCount = (totalUsersCount: number) => {
         return {type: SET_TOTAL_USERS_COUNT, count:totalUsersCount} as const
 }
-
+export const toggleIsFetching = (isFetching: boolean) => {
+    return {type: TOGGLE_IS_FETCHING, isFetching} as const
+}
 

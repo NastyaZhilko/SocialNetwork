@@ -1,7 +1,6 @@
 import React from "react";
 import s from './Sidebar.module.css';
-import Friends from "./Friends/Friends";
-import {SidebarType} from "../../Redux/store";
+
 
 /*export type MySidebarType={
     sidebar: SidebarType

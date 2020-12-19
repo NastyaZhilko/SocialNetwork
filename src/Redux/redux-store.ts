@@ -1,5 +1,11 @@
 import {combineReducers, createStore, Dispatch, Store} from "redux";
-import {addNewPostTextActionCreator, addPostActionCreator, ProfilePageType, profileReducer} from "./profile_reducer";
+import {
+    addNewPostTextActionCreator,
+    addPostActionCreator,
+    ProfilePageType,
+    profileReducer,
+    setUsersProfile
+} from "./profile_reducer";
 import {sidebarReducer, SidebarType} from "./sidebar_reducer";
 import {
     addNewMessageActionCreator,
@@ -8,11 +14,12 @@ import {
     dialogsReducer
 } from "./dialogs_reducer";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unFollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unFollow,
     UsersPageType,
     usersReducers
 } from "./users_reducer";
@@ -21,13 +28,15 @@ import {
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof addNewPostTextActionCreator>
+    | ReturnType<typeof setUsersProfile>
     | ReturnType<typeof addNewMessageActionCreator>
     | ReturnType<typeof addNewMessageTextActionCreator>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 
 export type StoreType = {

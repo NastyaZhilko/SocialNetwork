@@ -1,8 +1,13 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
 import road from './wpapers.jpg'
+import {ProfileType} from "../../../Redux/profile_reducer";
 
-const ProfileInfo =()=> {
+export type ProfileInfoPropsType={
+    profile:ProfileType | null
+}
+
+const ProfileInfo =(props:ProfileInfoPropsType)=> {
 
     return (
         <div className='app-wrapper-content'>
@@ -10,6 +15,7 @@ const ProfileInfo =()=> {
                 <img src={road}/>
             </div>
             <div className={s.descriptionBlock}>
+                <img src={props.profile?.photos.large}/>
                 ava+description
             </div>
 
