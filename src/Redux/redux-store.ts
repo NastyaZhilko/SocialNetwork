@@ -23,6 +23,7 @@ import {
     UsersPageType,
     usersReducers
 } from "./users_reducer";
+import {AuthPropsType, authReducers,  setAuthUserData} from "./auth-reducer";
 
 
 export type ActionsTypes =
@@ -37,6 +38,8 @@ export type ActionsTypes =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setAuthUserData>
+
 
 
 export type StoreType = {
@@ -47,13 +50,15 @@ export type StoreType = {
     getState: () => AppStateType
     subscribe: (observer: () => void) => void
     dispatch: Dispatch
+    auth: AuthPropsType
 }
 let reducers = combineReducers(
     {
         profilePage: profileReducer,
         dialogsPage: dialogsReducer,
         sidebar: sidebarReducer,
-        usersPage: usersReducers
+        usersPage: usersReducers,
+        auth: authReducers
     }
 );
 
