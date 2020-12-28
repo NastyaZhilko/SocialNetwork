@@ -1,7 +1,5 @@
-import {addNewPostTextActionCreator, addPostActionCreator} from "./profile_reducer";
-import {addNewMessageActionCreator, addNewMessageTextActionCreator} from "./dialogs_reducer";
-export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof addNewPostTextActionCreator>
-    | ReturnType<typeof addNewMessageActionCreator> | ReturnType<typeof addNewMessageTextActionCreator>
+import {ActionsTypes} from "./redux-store";
+
 export type FriendsType = {
     id: number
     name: string
@@ -10,7 +8,7 @@ export type FriendsType = {
 export type SidebarType = {
     friends: Array<FriendsType>
 }
-let initialState={
+let initialState = {
     friends: [
         {
             id: 1,
@@ -29,6 +27,6 @@ let initialState={
         }
     ],
 }
-export const sidebarReducer=(state: SidebarType=initialState, action: ActionsTypes)=>{
+export const sidebarReducer = (state: SidebarType = initialState, action: ActionsTypes) => {
     return state
 }

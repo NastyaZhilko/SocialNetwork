@@ -78,12 +78,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
-export let addPostActionCreator = () => {
+export let addPost = () => {
     return {type: ADD_POST
     } as const
 }
 
-export let addNewPostTextActionCreator = (newText: string) => {
+export let addNewPostText = (newText: string) => {
     return {type: UPDATE_NEW_POST_TEXT,newText: newText} as const}
 
 export let setUsersProfile = (profile:ProfileType ) => {

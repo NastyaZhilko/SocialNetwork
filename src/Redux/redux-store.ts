@@ -1,37 +1,25 @@
-import {combineReducers, createStore, Dispatch, Store} from "redux";
-import {
-    addNewPostTextActionCreator,
-    addPostActionCreator,
-    ProfilePageType,
-    profileReducer,
-    setUsersProfile
-} from "./profile_reducer";
-import {sidebarReducer, SidebarType} from "./sidebar_reducer";
-import {
-    addNewMessageActionCreator,
-    addNewMessageTextActionCreator,
-    DialogsPageType,
-    dialogsReducer
-} from "./dialogs_reducer";
+import {combineReducers, createStore, Store} from "redux";
+import {addNewPostText, addPost, profileReducer, setUsersProfile} from "./profile_reducer";
+import {sidebarReducer} from "./sidebar_reducer";
+import {addNewMessage, addNewMessageText, dialogsReducer} from "./dialogs_reducer";
 import {
     follow,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleFollowingInProgress,
     toggleIsFetching,
     unFollow,
-    UsersPageType,
     usersReducers
 } from "./users_reducer";
-import {AuthPropsType, authReducers,  setAuthUserData} from "./auth-reducer";
+import {authReducers, setAuthUserData} from "./auth-reducer";
 
 
 export type ActionsTypes =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof addNewPostTextActionCreator>
+    ReturnType<typeof addPost>
+    | ReturnType<typeof addNewPostText>
     | ReturnType<typeof setUsersProfile>
-    | ReturnType<typeof addNewMessageActionCreator>
-    | ReturnType<typeof addNewMessageTextActionCreator>
+    | ReturnType<typeof addNewMessage>
+    | ReturnType<typeof addNewMessageText>
     | ReturnType<typeof follow>
     | ReturnType<typeof unFollow>
     | ReturnType<typeof setUsers>
@@ -39,10 +27,11 @@ export type ActionsTypes =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof toggleFollowingInProgress>
 
 
 
-export type StoreType = {
+/*export type StoreType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
@@ -51,7 +40,7 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: Dispatch
     auth: AuthPropsType
-}
+}*/
 let reducers = combineReducers(
     {
         profilePage: profileReducer,

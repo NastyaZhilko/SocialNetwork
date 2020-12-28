@@ -1,8 +1,8 @@
 import {ActionsTypes} from "./redux-store";
 
-
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 const SEND_MESSAGE = 'SEND-MESSAGE';
+
 export type DialogsPageType = {
     messages: Array<MessagesType>
     newMessageText: string
@@ -75,14 +75,14 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
     }
 }
 
-export let addNewMessageTextActionCreator = (messageBody: string) => {
+export let addNewMessageText = (messageBody: string) => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
         messageBody: messageBody
     } as const
 }
 
-export let addNewMessageActionCreator = () => {
+export let addNewMessage = () => {
     return {
         type: SEND_MESSAGE
     } as const

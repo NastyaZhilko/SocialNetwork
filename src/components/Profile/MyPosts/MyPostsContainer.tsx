@@ -1,11 +1,11 @@
 import React from "react";
-import {addNewPostTextActionCreator, addPostActionCreator} from "../../../Redux/profile_reducer";
+import {addNewPostText, addPost} from "../../../Redux/profile_reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {StoreType} from "../../../Redux/redux-store";
+import {AppStateType} from "../../../Redux/redux-store";
 
-let mapStateToProps=(state: StoreType)=>{
+let mapStateToProps=(state: AppStateType)=>{
     return{
         profilePage: state.profilePage
     }
@@ -13,10 +13,10 @@ let mapStateToProps=(state: StoreType)=>{
 let mapDispatchToProps=(dispatch: Dispatch)=> {
     return {
         addPostCallback: () => {
-            dispatch(addPostActionCreator())
+            dispatch(addPost())
         },
         addNewPostText: (newText: string) => {
-            dispatch(addNewPostTextActionCreator(newText));
+            dispatch(addNewPostText(newText));
         }
     }
 }

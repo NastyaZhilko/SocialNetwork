@@ -1,12 +1,11 @@
 import React from 'react';
-import {addNewMessageActionCreator, addNewMessageTextActionCreator} from "../../Redux/dialogs_reducer";
+import {addNewMessage, addNewMessageText} from "../../Redux/dialogs_reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-
 import {Dispatch} from "redux";
-import {StoreType} from "../../Redux/redux-store";
+import {AppStateType} from "../../Redux/redux-store";
 
-let mapStateToProps = (state: StoreType) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         dialogsPage: state.dialogsPage
     }
@@ -14,10 +13,10 @@ let mapStateToProps = (state: StoreType) => {
 let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onSendMessageClick: () => {
-            dispatch(addNewMessageActionCreator())
+            dispatch(addNewMessage())
         },
         onNewMessageChange: (messageBody: string) => {
-            dispatch(addNewMessageTextActionCreator(messageBody))
+            dispatch(addNewMessageText(messageBody))
         }
     }
 }

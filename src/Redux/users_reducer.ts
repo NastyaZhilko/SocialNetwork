@@ -4,8 +4,9 @@ const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const SET_TOTAL_USERS_COUNT='SET-TOTAL-USERS-COUNT'
-const TOGGLE_IS_FETCHING='TOGGLE-IS-FETCHING'
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
+const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
 
 export type PhotosType = {
     small: string
@@ -24,14 +25,16 @@ export type UsersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    isFetching:boolean
+    isFetching: boolean
+    followingInProgress: Array<number>
 }
-let initialState: UsersPageType= {
+let initialState: UsersPageType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
 export const usersReducers = (state: UsersPageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
@@ -45,6 +48,7 @@ export const usersReducers = (state: UsersPageType = initialState, action: Actio
                     return u
                 })
             }
+
         case UNFOLLOW:
             return {
                 ...state,
@@ -55,6 +59,7 @@ export const usersReducers = (state: UsersPageType = initialState, action: Actio
                     return u
                 })
             }
+
         case SET_USERS:
             return {...state, users: action.users}
 
@@ -63,8 +68,17 @@ export const usersReducers = (state: UsersPageType = initialState, action: Actio
 
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.count}
+
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+
+        case TOGGLE_IS_FOLLOWING_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
 
         default:
             return state
@@ -84,9 +98,12 @@ export const setCurrentPage = (currentPage: number) => {
     return {type: SET_CURRENT_PAGE, currentPage} as const
 }
 export const setTotalUsersCount = (totalUsersCount: number) => {
-        return {type: SET_TOTAL_USERS_COUNT, count:totalUsersCount} as const
+    return {type: SET_TOTAL_USERS_COUNT, count: totalUsersCount} as const
 }
 export const toggleIsFetching = (isFetching: boolean) => {
     return {type: TOGGLE_IS_FETCHING, isFetching} as const
+}
+export const toggleFollowingInProgress = (isFetching: boolean, userId: number) => {
+    return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId} as const
 }
 
