@@ -3,12 +3,14 @@ import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialohItem";
 import MessageItem from "./Messages/Messages";
 import {DialogsPageType} from "../../Redux/dialogs_reducer";
+import {Redirect} from "react-router-dom";
 
 
 type OneDialogsType = {
     dialogsPage: DialogsPageType
     onSendMessageClick: (newMessage: string) => void
     onNewMessageChange: (messageBody: string) => void
+    isAuth:boolean
 }
 
 const Dialogs = (props: OneDialogsType) => {
@@ -24,6 +26,7 @@ const Dialogs = (props: OneDialogsType) => {
     let onNewChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onNewMessageChange(e.currentTarget.value)
     }
+    if (props.isAuth===false)return <Redirect to={'/login'}/>
     return (
         <div className={s.dialogs}>
             <div className={s.dialogItems}>

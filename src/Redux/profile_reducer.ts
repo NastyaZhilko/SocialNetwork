@@ -1,10 +1,13 @@
 import {ActionsTypes} from "./redux-store";
+import {Dispatch} from "redux";
+import {usersAPI} from "../Api/Api";
+
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 
-export type ContactsType={
+export type ContactsType = {
     facebook: string
     website: string
     vk: string
@@ -13,16 +16,16 @@ export type ContactsType={
     github: string
     mainLink: string
 }
-export type PhotosType={
+export type PhotosType = {
     small: string
     large: string
 }
 export type ProfileType = {
     aboutMe: string
     contacts: ContactsType
-    lookingForAJob:boolean
+    lookingForAJob: boolean
     lookingForAJobDescription: string
-    fullName:string
+    fullName: string
     userId: number
     photos: PhotosType
 
@@ -30,7 +33,7 @@ export type ProfileType = {
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
-    profile: ProfileType|null
+    profile: ProfileType | null
 }
 export type PostsType = {
     id: number
@@ -44,10 +47,10 @@ let initialState = {
         {id: 2, message: 'It is my first post?', howManyLikes: 15}
     ],
     newPostText: 'New post',
-    profile:  null
+    profile: null
 };
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes):ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: PostsType = {
@@ -78,13 +81,25 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
-export let addPost = () => {
-    return {type: ADD_POST
+export const addPost = () => {
+    return {
+        type: ADD_POST
     } as const
 }
 
-export let addNewPostText = (newText: string) => {
-    return {type: UPDATE_NEW_POST_TEXT,newText: newText} as const}
+export const addNewPostText = (newText: string) => {
+    return {type: UPDATE_NEW_POST_TEXT, newText: newText} as const
+}
 
-export let setUsersProfile = (profile:ProfileType ) => {
-    return {type: SET_USER_PROFILE,profile} as const}
+export const setUsersProfile = (profile: ProfileType) => {
+    return {type: SET_USER_PROFILE, profile} as const
+}
+
+export const getProfile = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUsersProfile(response.data))
+            })
+    }
+}
