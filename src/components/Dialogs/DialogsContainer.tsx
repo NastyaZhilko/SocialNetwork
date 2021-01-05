@@ -2,8 +2,10 @@ import React from 'react';
 import {addNewMessage, addNewMessageText} from "../../Redux/dialogs_reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {AppStateType} from "../../Redux/redux-store";
+import {Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
 
 let mapStateToProps = (state: AppStateType) => {
     return {
@@ -11,6 +13,7 @@ let mapStateToProps = (state: AppStateType) => {
         isAuth:state.auth.isAuth
     }
 }
+
 let mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onSendMessageClick: () => {
@@ -21,5 +24,13 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
         }
     }
 }
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+
+/*compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)*/ //не могу понять как ее заюзать
+let AuthRedirectComponent=withAuthRedirect(Dialogs)
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 export default DialogsContainer;
