@@ -4,7 +4,6 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {Redirect} from "react-router-dom";
 import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
 
 let mapStateToProps = (state: AppStateType) => {
@@ -29,8 +28,13 @@ let mapDispatchToProps = (dispatch: Dispatch) => {
 /*compose(
     connect(mapStateToProps, mapDispatchToProps),
     withAuthRedirect
-)(Dialogs)*/ //не могу понять как ее заюзать
+)(Dialogs)
 let AuthRedirectComponent=withAuthRedirect(Dialogs)
 
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
-export default DialogsContainer;
+export default DialogsContainer;*/
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)

@@ -1,6 +1,7 @@
-import {ActionsTypes} from "./redux-store";
+import {ActionsTypes, AppStateType, ThunkType} from "./redux-store";
 import {Dispatch} from "redux";
 import {authApi} from "../Api/Api";
+import {ThunkAction} from "redux-thunk";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -45,8 +46,8 @@ export const setAuthUserData = (id: number|null, email: string|null, login: stri
     } as const
 }
 
-export const auth=()=>{
-    return (dispatch: Dispatch)=>{
+export const auth=():ThunkType =>{
+    return (dispatch)=>{
 
         authApi.me()
             .then(response => {

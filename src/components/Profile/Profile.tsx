@@ -5,11 +5,12 @@ import {ProfileType} from "../../Redux/profile_reducer";
 
 export type ProfilePropsType = {
     profile: ProfileType | null
+   // isAuth:boolean
 }
 const Profile = (props: ProfilePropsType) => {
     return (
         <div className='app-wrapper-content'>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} />
             <MyPostsContainer/>
         </div>
     )

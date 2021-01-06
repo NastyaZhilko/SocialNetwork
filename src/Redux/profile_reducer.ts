@@ -1,4 +1,4 @@
-import {ActionsTypes} from "./redux-store";
+import {ActionsTypes, ThunkType} from "./redux-store";
 import {Dispatch} from "redux";
 import {usersAPI} from "../Api/Api";
 
@@ -29,11 +29,13 @@ export type ProfileType = {
     userId: number
     photos: PhotosType
 
+
 }
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
     profile: ProfileType | null
+
 }
 export type PostsType = {
     id: number
@@ -48,6 +50,8 @@ let initialState = {
     ],
     newPostText: 'New post',
     profile: null
+
+
 };
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
@@ -72,7 +76,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case  SET_USER_PROFILE: {
             return {
                 ...state,
-                profile: action.profile
+                profile: action.profile,
+
             }
         }
 
@@ -95,8 +100,9 @@ export const setUsersProfile = (profile: ProfileType) => {
     return {type: SET_USER_PROFILE, profile} as const
 }
 
-export const getProfile = (userId: number) => {
-    return (dispatch: Dispatch) => {
+
+export const getProfile = (userId: number): ThunkType => {
+    return (dispatch) => {
         usersAPI.getProfile(userId)
             .then(response => {
                 dispatch(setUsersProfile(response.data))

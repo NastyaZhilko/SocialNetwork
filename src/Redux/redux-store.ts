@@ -12,7 +12,7 @@ import {
     usersReducers
 } from "./users_reducer";
 import {authReducers, setAuthUserData} from "./auth-reducer";
-import thunkMiddleware from "redux-thunk"
+import thunkMiddleware, {ThunkAction} from "redux-thunk"
 
 export type ActionsTypes =
     ReturnType<typeof addPost>
@@ -52,6 +52,12 @@ let reducers = combineReducers(
 );
 
 export type AppStateType = ReturnType<typeof reducers>
+// ThunkAction
+// 1 параметр - описываем, что возвращает thunk
+// 2 параметр - state всего приложения
+// 3 параметр - экстра аргументы
+// 4 параметр - все action всего App
+export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 export let store: Store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 type Window = typeof window & { store: Store }

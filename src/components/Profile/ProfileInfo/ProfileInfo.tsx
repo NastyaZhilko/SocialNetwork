@@ -5,12 +5,14 @@ import {ProfileType} from "../../../Redux/profile_reducer";
 
 export type ProfileInfoPropsType={
     profile:ProfileType | null
+   // isAuth:boolean
 }
 
 const ProfileInfo =(props:ProfileInfoPropsType)=> {
 
     return (
         <div className='app-wrapper-content'>
+
             <div className={s.image}>
                 <img src={road}/>
             </div>
@@ -19,10 +21,9 @@ const ProfileInfo =(props:ProfileInfoPropsType)=> {
                 ava+description
             </div>
 
+
         </div>
     )
-
-
 
 }
 export default ProfileInfo;

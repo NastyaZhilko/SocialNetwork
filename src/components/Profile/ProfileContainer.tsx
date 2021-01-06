@@ -23,10 +23,12 @@ type PathParamsType = {
 
 type MapStateToPropsType = {
     profile: ProfileType | null
+
 }
 
 type MapDispatchToPropsType = {
     getProfile:(userId:number)=>void
+
 }
 
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -36,6 +38,7 @@ type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 class ProfileContainer extends React.Component <PropsType> {
 
     componentDidMount() {
+        debugger
         let userId = Number(this.props.match.params.userId)
         if (!userId) {
             userId = 2
@@ -49,24 +52,28 @@ class ProfileContainer extends React.Component <PropsType> {
         return (
 
             <div className='app-wrapper-content'>
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props}  profile={this.props.profile}/>
             </div>
         )
     }
 }
 
-/*compose(
-    connect(mapStateToProps, {getProfile}),
-    withRouter,
-    withAuthRedirect
-)(ProfileContainer)*/
-
-let AuthRedirectComponent=withAuthRedirect(ProfileContainer)
-
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile
 
+
 })
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getProfile}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
+
+
+/*
+let AuthRedirectComponent=withAuthRedirect(ProfileContainer)
 const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 export default connect(mapStateToProps, {getProfile})(WithUrlDataContainerComponent);
+*/
+
