@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore, Store} from "redux";
-import {addNewPostText, addPost, profileReducer, setUsersProfile} from "./profile_reducer";
+import {addNewPostText, addPost, profileReducer, setStatus, setUsersProfile} from "./profile_reducer";
 import {sidebarReducer} from "./sidebar_reducer";
 import {addNewMessage, addNewMessageText, dialogsReducer} from "./dialogs_reducer";
 import {
@@ -28,6 +28,7 @@ export type ActionsTypes =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingInProgress>
+    | ReturnType<typeof setStatus>
 
 
 

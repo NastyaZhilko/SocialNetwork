@@ -1,10 +1,9 @@
 import React from "react";
 import Profile from "./Profile";
-import {getProfile, ProfileType} from "../../Redux/profile_reducer";
+import {getProfile, getStatus, ProfileType, updateStatus} from "../../Redux/profile_reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {RouteComponentProps, withRouter, Redirect} from "react-router-dom";
-import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 
 /*type ResponseType={
@@ -19,15 +18,19 @@ import {compose} from "redux";
 }*/
 type PathParamsType = {
     userId: string
+
 }
 
 type MapStateToPropsType = {
     profile: ProfileType | null
+    status: string
 
 }
 
 type MapDispatchToPropsType = {
-    getProfile:(userId:number)=>void
+    getProfile: (userId: number) => void
+    getStatus: (userId: number) => void
+    updateStatus:(status:string)=>void
 
 }
 
@@ -41,32 +44,34 @@ class ProfileContainer extends React.Component <PropsType> {
         debugger
         let userId = Number(this.props.match.params.userId)
         if (!userId) {
-            userId = 2
+            userId = 13167
         }
-        this.props.getProfile(userId)
+        this.props.getProfile(userId);
+        this.props.getStatus(userId);
     }
 
-
-    render(){
+    render() {
 
         return (
 
             <div className='app-wrapper-content'>
-                <Profile {...this.props}  profile={this.props.profile}/>
+                <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
             </div>
         )
     }
 }
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
 
 
 })
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getProfile}),
+    connect(mapStateToProps, {getProfile, getStatus, updateStatus}),
     withRouter,
-    withAuthRedirect
+    /* withAuthRedirect*/
+    //не выбрасывает на логинизацию(удалить комент)
 )(ProfileContainer)
 
 
