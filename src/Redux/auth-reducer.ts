@@ -1,7 +1,5 @@
-import {ActionsTypes, AppStateType, ThunkType} from "./redux-store";
-import {Dispatch} from "redux";
 import {authApi} from "../Api/Api";
-import {ThunkAction} from "redux-thunk";
+import {ActionsTypes, ThunkType} from "../Types/commonType";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -14,19 +12,19 @@ export type SetAuthUserDataType={
     type: 'SET_USER_DATA'
     data: UserDataType
 }
-export type AuthPropsType = {
+export type AuthPropsType = typeof initialState/*{
     id: number | null
     email: string | null
     login: string | null
     isAuth: boolean
-}
-let initialState: AuthPropsType = {
-    id: null,
-    email: null,
-    login: null,
+}*/
+let initialState = {
+    id: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false
 }
-export const authReducers = (state: AuthPropsType = initialState, action: ActionsTypes):AuthPropsType => {
+export const authReducers = (state = initialState, action: ActionsTypes):AuthPropsType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {

@@ -1,18 +1,16 @@
-import {ActionsTypes} from "./redux-store";
-
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+import {ActionsTypes} from "../Types/commonType";
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
-export type DialogsPageType = {
+export type DialogsPageType = typeof initialState/*{
     messages: Array<MessagesType>
     newMessageText: string
     dialogs: Array<DialogsType>
-}
-export type MessagesType = {
+}*/
+export type MessageType = {
     id: number
     message: string
 }
-export type DialogsType = {
+export type DialogType = {
     id: number
     name: string
     img: string
@@ -25,8 +23,8 @@ let initialState = {
         {id: 4, message: 'My dog is the best friend'},
         {id: 5, message: 'The best day!'}
 
-    ],
-    newMessageText: '',
+    ] as Array<MessageType>,
+
     dialogs: [
         {
             id: 1,
@@ -53,21 +51,16 @@ let initialState = {
             name: 'Pasha',
             img: 'https://cameralabs.org/images/jamp/page/d07d78d2fbbd361944e4a80341a9931b_L.jpg'
         }
-    ]
+    ] as Array<DialogType>
 }
-export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes):DialogsPageType => {
+export const dialogsReducer = (state= initialState, action: ActionsTypes):DialogsPageType => {
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {...state, newMessageText:action.messageBody}
-
 
         case SEND_MESSAGE:
-            let messageBody = state.newMessageText;
             return {
                 ...state,
-                newMessageText: '',
-                messages: [...state.messages, {id: 6, message: messageBody}]
+                messages: [...state.messages, {id: 6, message: action.newMessageText}]
             };
 
         default:
@@ -75,16 +68,11 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
     }
 }
 
-export let addNewMessageText = (messageBody: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        messageBody: messageBody
-    } as const
-}
 
-export let addNewMessage = () => {
+export let addNewMessage = (newMessageText:string) => {
     return {
-        type: SEND_MESSAGE
+        type: SEND_MESSAGE,
+        newMessageText
     } as const
 }
 

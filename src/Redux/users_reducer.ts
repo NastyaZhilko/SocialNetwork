@@ -1,7 +1,6 @@
-import {ActionsTypes, AppStateType, ThunkType} from "./redux-store";
 import {usersAPI} from "../Api/Api";
 import {Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
+import {ActionsTypes, ThunkType} from "../Types/commonType";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -11,35 +10,37 @@ const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
 
-export type PhotosType = {
+/*export type PhotosType = {
     small: string
     large: string
-}
+}*/
 export type UsersType = {
-    name: string
     id: number
-    uniqueUrlName: string
-    photos: PhotosType
+    name: string
+    photos: {
+        small: string
+        large: string
+    }
     status: string
     followed: boolean
 }
-export type UsersPageType = {
+export type UsersPageType = typeof  initialState /*{
     users: Array<UsersType>
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
-}
-let initialState: UsersPageType = {
-    users: [],
+}*/
+let initialState  = {
+    users: [] as Array<UsersType>,
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [] as Array<number>
 }
-export const usersReducers = (state: UsersPageType = initialState, action: ActionsTypes) => {
+export const usersReducers = (state = initialState, action: ActionsTypes): UsersPageType => {
     switch (action.type) {
         case FOLLOW:
             return {

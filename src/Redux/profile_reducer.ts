@@ -1,43 +1,51 @@
-import {ActionsTypes, ThunkType} from "./redux-store";
 import {profileAPI, usersAPI} from "../Api/Api";
-
+import {ActionsTypes, ThunkType} from "../Types/commonType";
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
 
-export type ContactsType = {
-    facebook: string
-    website: string
-    vk: string
-    instagram: string
-    youtube: string
+/*export type ContactsType = {
     github: string
-    mainLink: string
-}
-export type PhotosType = {
-    small: string
-    large: string
-}
+        vk: string
+        facebook: string
+        instagram: string
+        twitter:string
+        website: string
+        youtube: string
+        mainLink: string
+}*/
+/*export type PhotosType = {
+        small: string|null
+        large: string|null
+}*/
 export type ProfileType = {
-    aboutMe: string
-    contacts: ContactsType
+    userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    userId: number
-    photos: PhotosType
-
-
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
 }
-export type ProfilePageType = {
+export type ProfilePageType = typeof initialState /*{
     posts: Array<PostsType>
     newPostText: string
     profile: ProfileType | null
     status: string
-}
-export type PostsType = {
+}*/
+export type PostType = {
     id: number
     message: string
     howManyLikes: number
@@ -48,31 +56,21 @@ let initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you?', howManyLikes: 10},
         {id: 2, message: 'It is my first post?', howManyLikes: 15}
-    ],
-    newPostText: 'New post',
-    profile: null,
-    status:''
+    ] as Array<PostType>,
+    profile: null as ProfileType | null,
+    status: ''
 };
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
+export const profileReducer = (state = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
-            const newPost: PostsType = {
-                id: 3,
-                message: state.newPostText,
-                howManyLikes: 0
-            };
             return {
                 ...state,
-                posts: [...state.posts, newPost],
-                newPostText: ''
+                posts: [...state.posts, {id: 3,
+            message: action.newPostText,
+            howManyLikes: 0}]
             }
 
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
-            }
         case  SET_USER_PROFILE: {
             return {
                 ...state,
@@ -93,23 +91,20 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
-export const addPost = () => {
+export const addPost = (newPostText: string) => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        newPostText
     } as const
-}
-
-export const addNewPostText = (newText: string) => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: newText} as const
 }
 
 export const setUsersProfile = (profile: ProfileType) => {
     return {type: SET_USER_PROFILE, profile} as const
 }
-export const setStatus = (status: string) => {
-    return {type: SET_STATUS,status} as const
-}
 
+export const setStatus = (status: string) => {
+    return {type: SET_STATUS, status} as const
+}
 
 export const getProfile = (userId: number): ThunkType => {
     return (dispatch) => {
@@ -128,11 +123,11 @@ export const getStatus = (userId: number): ThunkType => {
     }
 }
 
-export const updateStatus = (status:string): ThunkType => {
+export const updateStatus = (status: string): ThunkType => {
     return (dispatch) => {
         profileAPI.updateStatus(status)
             .then(response => {
-                if(response.data.resultCode===0) {
+                if (response.data.resultCode === 0) {
                     dispatch(setStatus(status))
                 }
             })
