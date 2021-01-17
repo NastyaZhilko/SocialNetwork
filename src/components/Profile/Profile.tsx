@@ -11,7 +11,7 @@ export type ProfilePropsType = {
 const Profile = (props: ProfilePropsType) => {
     return (
         <div className='app-wrapper-content'>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+            {props.profile && <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>}
             <MyPostsContainer/>
         </div>
     )

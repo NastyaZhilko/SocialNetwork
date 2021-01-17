@@ -5,7 +5,7 @@ import {ProfileType} from "../../../Redux/profile_reducer";
 import ProfileStatus from "./ProfileStatus";
 
 export type ProfileInfoPropsType = {
-    profile: ProfileType | null
+    profile: ProfileType
     status: string
     updateStatus:(status: string)=>void
 }
@@ -19,7 +19,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <img src={road}/>
             </div>*/}
             <div className={s.descriptionBlock}>
-                <img src={props.profile?.photos.large}/>
+                <img src={props.profile.photos.large}/>
                 <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             </div>
 

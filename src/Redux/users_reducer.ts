@@ -1,4 +1,4 @@
-import {usersAPI} from "../Api/Api";
+import {ResultCodesEnum, usersAPI} from "../Api/Api";
 import {Dispatch} from "redux";
 import {ActionsTypes, ThunkType} from "../Types/commonType";
 
@@ -17,14 +17,15 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS'
 export type UsersType = {
     id: number
     name: string
+    status: string
     photos: {
         small: string
         large: string
     }
-    status: string
+
     followed: boolean
 }
-export type UsersPageType = typeof  initialState /*{
+export type UsersPageType = typeof initialState /*{
     users: Array<UsersType>
     pageSize: number
     totalUsersCount: number
@@ -32,7 +33,7 @@ export type UsersPageType = typeof  initialState /*{
     isFetching: boolean
     followingInProgress: Array<number>
 }*/
-let initialState  = {
+let initialState = {
     users: [] as Array<UsersType>,
     pageSize: 5,
     totalUsersCount: 0,
@@ -122,12 +123,12 @@ export const getUsers = (currentPage: number, pageSize: number) => {
     }
 }
 
-export const follow = (userId: number):ThunkType => {
+export const follow = (userId: number): ThunkType => {
     return (dispatch) => {
         dispatch(toggleFollowingInProgress(true, userId))
         usersAPI.follow(userId)
             .then(response => {
-                if (response.data.resultCode === 0) {
+                if (response.data.resultCode === ResultCodesEnum.Success) {
                     dispatch(acceptFollow(userId))
                 }
                 dispatch(toggleFollowingInProgress(false, userId))
@@ -140,7 +141,7 @@ export const unFollow = (userId: number): ThunkType => {
         dispatch(toggleFollowingInProgress(true, userId))
         usersAPI.unFollow(userId)
             .then(response => {
-                if (response.data.resultCode === 0) {
+                if (response.data.resultCode === ResultCodesEnum.Success) {
                     dispatch(acceptUnFollow(userId))
                 }
                 dispatch(toggleFollowingInProgress(false, userId))

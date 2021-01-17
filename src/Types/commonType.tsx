@@ -26,7 +26,9 @@ export type ActionsTypes =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingInProgress>
     | ReturnType<typeof setStatus>
+export const actions={
 
+}
 //типизация санок
 // ThunkAction
 // 1 параметр - описываем, что возвращает thunk

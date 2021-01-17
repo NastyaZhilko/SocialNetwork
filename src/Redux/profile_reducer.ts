@@ -1,24 +1,11 @@
-import {profileAPI, usersAPI} from "../Api/Api";
+import {profileAPI, ResultCodesEnum, usersAPI} from "../Api/Api";
 import {ActionsTypes, ThunkType} from "../Types/commonType";
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
 
-/*export type ContactsType = {
-    github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter:string
-        website: string
-        youtube: string
-        mainLink: string
-}*/
-/*export type PhotosType = {
-        small: string|null
-        large: string|null
-}*/
+
 export type ProfileType = {
     userId: number
     lookingForAJob: boolean
@@ -127,7 +114,7 @@ export const updateStatus = (status: string): ThunkType => {
     return (dispatch) => {
         profileAPI.updateStatus(status)
             .then(response => {
-                if (response.data.resultCode === 0) {
+                if (response.data.resultCode === ResultCodesEnum.Success) {
                     dispatch(setStatus(status))
                 }
             })

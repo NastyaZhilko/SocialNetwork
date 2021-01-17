@@ -5,6 +5,7 @@ import {follow, getUsers, setCurrentPage, unFollow, UsersType} from "../../Redux
 import Users from "./Users";
 import loading from '../../assets/preloader.gif'
 import Preloader from "../common/Preloader/Preloader";
+import {compose} from "redux";
 
 /*type ResponseType = {
     items: Array<UsersType>
@@ -12,7 +13,7 @@ import Preloader from "../common/Preloader/Preloader";
     error: null
 }*/
 
-export type UsersContainerPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
+export type PropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
 
 type OwnPropsType = {}
 
@@ -33,7 +34,7 @@ type MapDispatchToPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
-export class UsersContainer extends React.Component<UsersContainerPropsType> {
+export class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
@@ -99,6 +100,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
     }
 }*/
-export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
+export default compose(
+connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
     follow, unFollow, setCurrentPage, getUsers
-})(UsersContainer)
+}))(UsersContainer)

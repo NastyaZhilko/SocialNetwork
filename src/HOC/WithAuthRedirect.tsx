@@ -14,7 +14,6 @@ let mapStateToPropsForRedirect = (state: AppStateType) => ({
 type DispatchPropsType = {}
 
 export function withAuthRedirect <WP> (Component: React.ComponentType<WP>)  {
-    debugger
 
     function RedirectComponent(props: PropsType & DispatchPropsType){
         let {isAuth, ...restProps} = props

@@ -1,4 +1,4 @@
-import {authApi} from "../Api/Api";
+import {authApi, ResultCodesEnum} from "../Api/Api";
 import {ActionsTypes, ThunkType} from "../Types/commonType";
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -49,8 +49,8 @@ export const auth=():ThunkType =>{
 
         authApi.me()
             .then(response => {
-                if (response.data.resultCode===0){
-                    let {id,login, email}=response.data.data
+                if (response.data.resultCode===ResultCodesEnum.Success){
+                    let {id, login, email}=response.data.data
                     dispatch(setAuthUserData(id, login, email))
                 }
             })
