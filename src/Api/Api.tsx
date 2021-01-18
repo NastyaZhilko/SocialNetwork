@@ -11,10 +11,10 @@ const instance = axios.create({
     }
 })
 
-export enum ResultCodesEnum{
-    Success=0,
-    Error=1,
-    CaptchaIsRequired=10
+export enum ResultCodesEnum {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
 
 }
 
@@ -35,14 +35,14 @@ export type BaseOperationResponseType<T> = {
     data: T
 }
 
-type MeProps = {
-    data: {
-        id: number
-        email: string
-        login: string
-    }
-    resultCode: ResultCodesEnum
-    messages: Array<string>
+type MeDataType = {
+    id: number
+    email: string
+    login: string
+    isAuth: boolean
+}
+export type LoginResponseDataType = {
+    userId: number
 }
 
 export const usersAPI = {
@@ -76,6 +76,17 @@ export const profileAPI = {
 
 export const authApi = {
     me() {
-        return instance.get<MeProps>(`auth/me`)
+        return instance.get<BaseOperationResponseType<MeDataType>>(`auth/me`)
+    },
+    login(email: string, password: string, rememberMe: false, captcha: null | string = null) {
+        return instance.post<BaseOperationResponseType<LoginResponseDataType>>(`auth/login`, {
+            email,
+            password,
+            rememberMe,
+            captcha
+        })
+    },
+    logOut() {
+        return instance.delete(`auth/login`)
     }
 }
