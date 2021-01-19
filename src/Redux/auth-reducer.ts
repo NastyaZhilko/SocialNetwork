@@ -6,10 +6,11 @@ import React from "react";
 const SET_USER_DATA = 'SET_USER_DATA';
 
 export type UserDataType = {
-    id: number | null
+    id: number|null
     login: string | null
     email: string | null
     isAuth: boolean
+
 }
 export type SetAuthUserDataType = {
     type: 'SET_USER_DATA'
@@ -58,19 +59,18 @@ export const auth = (): ThunkType => {
             })
     }
 }
-export const login = (email: string, password: string, rememberMe: false, captcha: null | string = null): ThunkType => {
+export const login = (email: string, password: string, rememberMe: false, captcha: string ): ThunkType => {
     return (dispatch) => {
-       /* let action=stopSubmit('login',{_error:'Common error'})
-        dispatch(action)
-        return*/
+
         authApi.login(email, password, rememberMe, captcha)
             .then(response => {
                 if (response.data.resultCode === ResultCodesEnum.Success) {
                     dispatch(auth())
                 }
-               /* else{
-                    let action=stopSubmit('login',{email:'Email is wrong'})
-                }*/
+                else{
+                    let message=response.data.messages.length>0 ? response.data.messages[0] : "Some error"
+                    dispatch(stopSubmit('login',{_error: message}))
+                }
             })
     }
 }

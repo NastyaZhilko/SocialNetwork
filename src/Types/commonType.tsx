@@ -11,6 +11,7 @@ import {
 import {setAuthUserData} from "../Redux/auth-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../Redux/redux-store";
+import {stopSubmit} from "redux-form";
 
 //типизация экшинов
 export type ActionsTypes =
@@ -35,4 +36,4 @@ export const actions={
 // 2 параметр - state всего приложения
 // 3 параметр - экстра аргументы
 // 4 параметр - все action всего App
-export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes | ReturnType <typeof stopSubmit>>

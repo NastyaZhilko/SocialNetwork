@@ -78,7 +78,7 @@ export const authApi = {
     me() {
         return instance.get<BaseOperationResponseType<MeDataType>>(`auth/me`)
     },
-    login(email: string, password: string, rememberMe: false, captcha: null | string = null) {
+    login(email: string, password: string, rememberMe: false, captcha: string) {
         return instance.post<BaseOperationResponseType<LoginResponseDataType>>(`auth/login`, {
             email,
             password,
