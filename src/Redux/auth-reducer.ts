@@ -5,7 +5,7 @@ import React from "react";
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
-export type UserDataType = {
+export type SetAuthUserDataPayloadType = {
     id: number|null
     login: string | null
     email: string | null
@@ -14,14 +14,10 @@ export type UserDataType = {
 }
 export type SetAuthUserDataType = {
     type: 'SET_USER_DATA'
-    data: UserDataType
+    data: SetAuthUserDataPayloadType
 }
-export type AuthPropsType = typeof initialState/*{
-    id: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-}*/
+export type AuthPropsType = typeof initialState
+
 let initialState = {
     id: null as number | null,
     email: null as string | null,
@@ -32,37 +28,39 @@ let initialState = {
 export const authReducers = (state = initialState, action: ActionsTypes): AuthPropsType => {
     switch (action.type) {
         case SET_USER_DATA:
-            return {
+            let s ={
                 ...state,
                 ...action.data
             }
+
+            return s
+
         default:
             return state
     }
 }
 
-export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean): SetAuthUserDataType => {
+export const setAuthUserData = (id: number | null, login: string | null, email: string | null,  isAuth: boolean): SetAuthUserDataType => {
     return {
         type: SET_USER_DATA, data: {id, email, login, isAuth}
     } as const
 }
 
-export const auth = (): ThunkType => {
-    return (dispatch) => {
+export const auth = (): ThunkType =>(dispatch) => {
 
-        authApi.me()
+      return  authApi.me()
             .then(response => {
                 if (response.data.resultCode === ResultCodesEnum.Success) {
                     let {id, login, email} = response.data.data
                     dispatch(setAuthUserData(id, login, email, true))
                 }
             })
-    }
-}
-export const login = (email: string, password: string, rememberMe: false, captcha: string ): ThunkType => {
-    return (dispatch) => {
 
-        authApi.login(email, password, rememberMe, captcha)
+}
+export const login = (email: string, password: string, rememberMe: false, captcha: string ): ThunkType =>
+     (dispatch) => {
+
+       return authApi.login(email, password, rememberMe, captcha)
             .then(response => {
                 if (response.data.resultCode === ResultCodesEnum.Success) {
                     dispatch(auth())
@@ -73,7 +71,7 @@ export const login = (email: string, password: string, rememberMe: false, captch
                 }
             })
     }
-}
+
 export const logOut = (): ThunkType => {
     return (dispatch) => {
 

@@ -33,7 +33,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnProps> & L
                        validate={[required]}/>
             </div>
             <div>
-                <Field placeholder={'password'} type="password" name={'password'} component={Input}
+                <Field placeholder={'password'}  name={'password'} component={Input} type="password"
                        validate={[required]}/>
             </div>
             <div>

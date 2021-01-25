@@ -16,9 +16,6 @@ type MapDispatchToPropsType={
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
 type PropsType=OwnPropsType
 class HeaderContainer extends React.Component <PropsType>{
-    componentDidMount() {
-        this.props.auth()
-    }
 
     render() {
 

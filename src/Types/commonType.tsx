@@ -12,6 +12,7 @@ import {setAuthUserData} from "../Redux/auth-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../Redux/redux-store";
 import {stopSubmit} from "redux-form";
+import {initializedSuccess} from "../Redux/app-reduser";
 
 //типизация экшинов
 export type ActionsTypes =
@@ -27,6 +28,8 @@ export type ActionsTypes =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleFollowingInProgress>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof initializedSuccess>
+
 export const actions={
 
 }

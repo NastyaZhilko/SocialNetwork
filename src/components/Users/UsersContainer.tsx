@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ComponentType} from 'react'
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {follow, getUsers, setCurrentPage, unFollow, UsersType} from "../../Redux/users_reducer";
@@ -6,6 +6,7 @@ import Users from "./Users";
 import loading from '../../assets/preloader.gif'
 import Preloader from "../common/Preloader/Preloader";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
 
 /*type ResponseType = {
     items: Array<UsersType>
@@ -72,35 +73,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-/*let mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unFollow: (userId: number) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users: Array<UsersType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-
-            dispatch(toggleIsFetchingAC(isFetching))
-        },
-        toggleFollowingInProgress: (isFetch: boolean, userId: number) => {
-
-            dispatch(toggleFollowingInProgress(isFetch,userId))
-        }
-
-    }
-}*/
-export default compose(
+export default compose<React.ComponentType>(
 connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
     follow, unFollow, setCurrentPage, getUsers
 }))(UsersContainer)
