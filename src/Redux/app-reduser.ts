@@ -23,14 +23,13 @@ export const appReducers = (state = initialState, action: ActionsTypes): PropsTy
 
 export const initializedSuccess = () => ({type: 'SET_INITIALIZED'} as const)
 
-export const initializeApp = ():ThunkType=>(dispatch) =>
-{
-        dispatch(auth() as any)
-            .then(() => {
-                dispatch(initializedSuccess())
-            })
+export const initializeApp = (): ThunkType => async (dispatch) => {
+    await dispatch(auth())
+        .then(() => {
+            dispatch(initializedSuccess())
+        })
 
 
-    }
+}
 
 

@@ -112,40 +112,37 @@ export const toggleFollowingInProgress = (isFetch: boolean, userId: number) => {
     return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetch, userId} as const
 }
 
-export const requestUsers = (page: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
-        dispatch(toggleIsFetching(true))
-        dispatch(setCurrentPage(page))
-        usersAPI.getUsers(page, pageSize).then(response => {
-            dispatch(toggleIsFetching(false))
-            dispatch(setUsers(response.data.items))
-            dispatch(setTotalUsersCount(response.data.totalCount))
-        })
-    }
+export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    dispatch(setCurrentPage(page))
+    await usersAPI.getUsers(page, pageSize).then(response => {
+        dispatch(toggleIsFetching(false))
+        dispatch(setUsers(response.data.items))
+        dispatch(setTotalUsersCount(response.data.totalCount))
+    })
 }
 
-export const follow = (userId: number): ThunkType => {
-    return (dispatch) => {
-        dispatch(toggleFollowingInProgress(true, userId))
-        usersAPI.follow(userId)
-            .then(response => {
-                if (response.data.resultCode === ResultCodesEnum.Success) {
-                    dispatch(acceptFollow(userId))
-                }
-                dispatch(toggleFollowingInProgress(false, userId))
-            });
-    }
+
+export const follow = (userId: number): ThunkType => async (dispatch) => {
+    dispatch(toggleFollowingInProgress(true, userId))
+    await usersAPI.follow(userId)
+        .then(response => {
+            if (response.data.resultCode === ResultCodesEnum.Success) {
+                dispatch(acceptFollow(userId))
+            }
+            dispatch(toggleFollowingInProgress(false, userId))
+        });
 }
 
-export const unFollow = (userId: number): ThunkType => {
-    return (dispatch) => {
-        dispatch(toggleFollowingInProgress(true, userId))
-        usersAPI.unFollow(userId)
-            .then(response => {
-                if (response.data.resultCode === ResultCodesEnum.Success) {
-                    dispatch(acceptUnFollow(userId))
-                }
-                dispatch(toggleFollowingInProgress(false, userId))
-            });
-    }
+
+export const unFollow = (userId: number): ThunkType => async (dispatch) => {
+    dispatch(toggleFollowingInProgress(true, userId))
+    await usersAPI.unFollow(userId)
+        .then(response => {
+            if (response.data.resultCode === ResultCodesEnum.Success) {
+                dispatch(acceptUnFollow(userId))
+            }
+            dispatch(toggleFollowingInProgress(false, userId))
+        });
+
 }

@@ -39,4 +39,4 @@ export const actions={
 // 2 параметр - state всего приложения
 // 3 параметр - экстра аргументы
 // 4 параметр - все action всего App
-export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes | ReturnType <typeof stopSubmit>>
+export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes | ReturnType <typeof stopSubmit>>

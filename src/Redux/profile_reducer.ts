@@ -93,30 +93,28 @@ export const setStatus = (status: string) => {
     return {type: SET_STATUS, status} as const
 }
 
-export const getProfile = (userId: number): ThunkType => {
-    return (dispatch) => {
-        usersAPI.getProfile(userId)
+export const getProfile = (userId: number): ThunkType => async (dispatch) =>
+{
+    await  usersAPI.getProfile(userId)
             .then(response => {
                 dispatch(setUsersProfile(response.data))
             })
-    }
+
 }
-export const getStatus = (userId: number): ThunkType => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId)
+export const getStatus = (userId: number): ThunkType => async (dispatch) => {
+    await profileAPI.getStatus(userId)
             .then(response => {
                 dispatch(setStatus(response.data))
             })
-    }
+
 }
 
-export const updateStatus = (status: string): ThunkType => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status)
+export const updateStatus = (status: string): ThunkType => async (dispatch) => {
+    await   profileAPI.updateStatus(status)
             .then(response => {
                 if (response.data.resultCode === ResultCodesEnum.Success) {
                     dispatch(setStatus(status))
                 }
             })
-    }
+
 }
