@@ -1,8 +1,6 @@
 import {ActionsTypes, ThunkType} from "../Types/commonType";
 import {auth} from "./auth-reducer";
 
-const SET_INITIALIZED = 'SET_INITIALIZED';
-
 
 export type PropsType = typeof initialState
 
@@ -11,7 +9,7 @@ let initialState = {
 }
 export const appReducers = (state = initialState, action: ActionsTypes): PropsType => {
     switch (action.type) {
-        case SET_INITIALIZED:
+        case 'SET_INITIALIZED':
             return {
                 ...state,
                 initialized: true

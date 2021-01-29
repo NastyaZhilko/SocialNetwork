@@ -1,11 +1,6 @@
 import {profileAPI, ResultCodesEnum, usersAPI} from "../Api/Api";
 import {ActionsTypes, ThunkType} from "../Types/commonType";
 
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET-USER-PROFILE';
-const SET_STATUS = 'SET-STATUS';
-
-
 export type ProfileType = {
     userId: number
     lookingForAJob: boolean
@@ -50,7 +45,7 @@ let initialState = {
 
 export const profileReducer = (state = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
-        case ADD_POST:
+        case 'ADD-POST':
             return {
                 ...state,
                 posts: [...state.posts, {id: 3,
@@ -58,14 +53,14 @@ export const profileReducer = (state = initialState, action: ActionsTypes): Prof
             howManyLikes: 0}]
             }
 
-        case  SET_USER_PROFILE: {
+        case   'SET-USER-PROFILE': {
             return {
                 ...state,
                 profile: action.profile,
 
             }
         }
-        case  SET_STATUS: {
+        case  'SET-STATUS': {
             return {
                 ...state,
                 status: action.status,
@@ -80,17 +75,17 @@ export const profileReducer = (state = initialState, action: ActionsTypes): Prof
 
 export const addPost = (newPostText: string) => {
     return {
-        type: ADD_POST,
+        type: 'ADD-POST',
         newPostText
     } as const
 }
 
 export const setUsersProfile = (profile: ProfileType) => {
-    return {type: SET_USER_PROFILE, profile} as const
+    return {type:  'SET-USER-PROFILE', profile} as const
 }
 
 export const setStatus = (status: string) => {
-    return {type: SET_STATUS, status} as const
+    return {type: 'SET-STATUS', status} as const
 }
 
 export const getProfile = (userId: number): ThunkType => async (dispatch) =>

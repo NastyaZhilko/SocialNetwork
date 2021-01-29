@@ -1,11 +1,7 @@
 import {ActionsTypes} from "../Types/commonType";
-const SEND_MESSAGE = 'SEND-MESSAGE';
 
-export type DialogsPageType = typeof initialState/*{
-    messages: Array<MessagesType>
-    newMessageText: string
-    dialogs: Array<DialogsType>
-}*/
+
+export type DialogsPageType = typeof initialState
 export type MessageType = {
     id: number
     message: string
@@ -57,7 +53,7 @@ export const dialogsReducer = (state= initialState, action: ActionsTypes):Dialog
 
     switch (action.type) {
 
-        case SEND_MESSAGE:
+        case 'SEND-MESSAGE':
             return {
                 ...state,
                 messages: [...state.messages, {id: 6, message: action.newMessageText}]
@@ -71,7 +67,7 @@ export const dialogsReducer = (state= initialState, action: ActionsTypes):Dialog
 
 export let addNewMessage = (newMessageText:string) => {
     return {
-        type: SEND_MESSAGE,
+        type: 'SEND-MESSAGE',
         newMessageText
     } as const
 }

@@ -2,7 +2,8 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 import road from './wpapers.jpg'
 import {ProfileType} from "../../../Redux/profile_reducer";
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+
 
 export type ProfileInfoPropsType = {
     profile: ProfileType
@@ -20,7 +21,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             </div>*/}
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large}/>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
             </div>
 
 

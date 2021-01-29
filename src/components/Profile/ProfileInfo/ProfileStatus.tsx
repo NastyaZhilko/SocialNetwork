@@ -46,7 +46,7 @@ class ProfileStatus extends React.Component<PropsType> {
             <div>
                 {!this.state.editMode &&
                 <div>
-                    <span onDoubleClick={this.acivateEditMode}>{this.props.status || "How are you?"}</span>
+                    <span onDoubleClick={this.acivateEditMode}>{this.props.status || "Empty status"}</span>
                 </div>
                 }
                 {this.state.editMode &&

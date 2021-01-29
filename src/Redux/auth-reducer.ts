@@ -1,21 +1,9 @@
 import {authApi, ResultCodesEnum} from "../Api/Api";
 import {ActionsTypes, ThunkType} from "../Types/commonType";
 import {stopSubmit} from "redux-form";
-import React from "react";
 
-const SET_USER_DATA = 'SET_USER_DATA';
 
-export type SetAuthUserDataPayloadType = {
-    id: number | null
-    login: string | null
-    email: string | null
-    isAuth: boolean
 
-}
-export type SetAuthUserDataType = {
-    type: 'SET_USER_DATA'
-    data: SetAuthUserDataPayloadType
-}
 export type AuthPropsType = typeof initialState
 
 let initialState = {
@@ -27,7 +15,7 @@ let initialState = {
 }
 export const authReducers = (state = initialState, action: ActionsTypes): AuthPropsType => {
     switch (action.type) {
-        case SET_USER_DATA:
+        case 'SET_USER_DATA':
             let s = {
                 ...state,
                 ...action.data
@@ -40,9 +28,9 @@ export const authReducers = (state = initialState, action: ActionsTypes): AuthPr
     }
 }
 
-export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean): SetAuthUserDataType => {
+export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => {
     return {
-        type: SET_USER_DATA, data: {id, email, login, isAuth}
+        type: 'SET_USER_DATA', data: {id, email, login, isAuth}
     } as const
 }
 
