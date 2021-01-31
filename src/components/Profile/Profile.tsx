@@ -9,6 +9,7 @@ export type ProfilePropsType = {
     updateStatus:(status: string)=>void
 }
 const Profile = (props: ProfilePropsType) => {
+    console.log('profile')
     return (
         <div className='app-wrapper-content'>
             {props.profile && <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>}

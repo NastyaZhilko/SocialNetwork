@@ -23,11 +23,7 @@ export const initializedSuccess = () => ({type: 'SET_INITIALIZED'} as const)
 
 export const initializeApp = (): ThunkType => async (dispatch) => {
     await dispatch(auth())
-        .then(() => {
-            dispatch(initializedSuccess())
-        })
-
-
+    dispatch(initializedSuccess())
 }
 
 

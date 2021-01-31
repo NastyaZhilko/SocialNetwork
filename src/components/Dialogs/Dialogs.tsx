@@ -16,7 +16,7 @@ type OneDialogsType = {
 
 }
 
-const Dialogs = (props: OneDialogsType) => {
+const Dialogs = React.memo((props: OneDialogsType) => {
     let dialogsElements =
         props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} img={d.img}/>)
     let messageElements =
@@ -41,12 +41,12 @@ const Dialogs = (props: OneDialogsType) => {
             </div>
         </div>
     )
-}
+})
 type FormDataType = {
     newMessageText: string
 }
 const maxLength50=maxLengthCreator(50)
-const MessageForm: React.FC<InjectedFormProps<FormDataType>> =(props)=> {
+const MessageForm: React.FC<InjectedFormProps<FormDataType>> = (props)=> {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>

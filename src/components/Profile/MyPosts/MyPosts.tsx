@@ -13,7 +13,7 @@ type MyPostsType = {
 
 }
 
-const MyPosts = (props: MyPostsType) => {
+const MyPosts = React.memo((props: MyPostsType) => {
     let postElements =
         props.profilePage.posts.map(p => <Post id={p.id} message={p.message} howManyLikes={p.howManyLikes}/>)
 
@@ -30,7 +30,7 @@ const MyPosts = (props: MyPostsType) => {
             {postElements}
         </div>
     </div>
-}
+})
 
 type FormDataType = {
     newPostText: string

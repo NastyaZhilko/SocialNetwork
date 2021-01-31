@@ -48,9 +48,11 @@ export const profileReducer = (state = initialState, action: ActionsTypes): Prof
         case 'ADD-POST':
             return {
                 ...state,
-                posts: [...state.posts, {id: 3,
-            message: action.newPostText,
-            howManyLikes: 0}]
+                posts: [...state.posts, {
+                    id: 3,
+                    message: action.newPostText,
+                    howManyLikes: 0
+                }]
             }
 
         case   'SET-USER-PROFILE': {
@@ -81,35 +83,26 @@ export const addPost = (newPostText: string) => {
 }
 
 export const setUsersProfile = (profile: ProfileType) => {
-    return {type:  'SET-USER-PROFILE', profile} as const
+    return {type: 'SET-USER-PROFILE', profile} as const
 }
 
 export const setStatus = (status: string) => {
     return {type: 'SET-STATUS', status} as const
 }
 
-export const getProfile = (userId: number): ThunkType => async (dispatch) =>
-{
-    await  usersAPI.getProfile(userId)
-            .then(response => {
-                dispatch(setUsersProfile(response.data))
-            })
-
+export const getProfile = (userId: number): ThunkType => async (dispatch) => {
+    let response = await usersAPI.getProfile(userId)
+            dispatch(setUsersProfile(response.data))
 }
-export const getStatus = (userId: number): ThunkType => async (dispatch) => {
-    await profileAPI.getStatus(userId)
-            .then(response => {
-                dispatch(setStatus(response.data))
-            })
 
+export const getStatus = (userId: number): ThunkType => async (dispatch) => {
+    let response = await profileAPI.getStatus(userId)
+    dispatch(setStatus(response.data))
 }
 
 export const updateStatus = (status: string): ThunkType => async (dispatch) => {
-    await   profileAPI.updateStatus(status)
-            .then(response => {
-                if (response.data.resultCode === ResultCodesEnum.Success) {
-                    dispatch(setStatus(status))
-                }
-            })
-
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === ResultCodesEnum.Success) {
+        dispatch(setStatus(status))
+    }
 }

@@ -8,7 +8,7 @@ type DialogItemPropsType={
     name: string
 }
 
-const DialogItem = (props:DialogItemPropsType) => {
+const DialogItem = React.memo((props:DialogItemPropsType) => {
     let path = '/dialogs/' + props.id;
     return (
         <div className={s.dialog}>
@@ -17,6 +17,6 @@ const DialogItem = (props:DialogItemPropsType) => {
         </div>
     )
 }
-
+)
 export default DialogItem;
-;
+

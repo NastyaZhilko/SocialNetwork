@@ -7,7 +7,7 @@ type HeaderPropsType={
     login:string|null
     logOut:()=>void
 }
-const Header =(props:HeaderPropsType)=> {
+const Header =React.memo((props:HeaderPropsType)=> {
 
   return  <header className={s.header}>
         <img src='https://flosium.ru/imagehost/158/med_kak-razvivaetsya-cvetok-gerbery-v-domashnih-usloviyah.jpg'/>
@@ -18,5 +18,5 @@ const Header =(props:HeaderPropsType)=> {
       <NavLink to={'/login'}>Login</NavLink>}
   </div>
   </header>
-}
+})
 export default Header;

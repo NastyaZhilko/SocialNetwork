@@ -3,7 +3,6 @@ import {ActionsTypes, ThunkType} from "../Types/commonType";
 import {stopSubmit} from "redux-form";
 
 
-
 export type AuthPropsType = typeof initialState
 
 let initialState = {
@@ -34,37 +33,31 @@ export const setAuthUserData = (id: number | null, login: string | null, email: 
     } as const
 }
 
-export const auth = (): ThunkType =>async (dispatch) => {
+export const auth = (): ThunkType => async (dispatch) => {
 
-    await authApi.me()
-        .then(response => {
-            if (response.data.resultCode === ResultCodesEnum.Success) {
-                let {id, login, email} = response.data.data
-                dispatch(setAuthUserData(id, login, email, true))
-            }
-        })
+    let response = await authApi.me()
 
+    if (response.data.resultCode === ResultCodesEnum.Success) {
+        let {id, login, email} = response.data.data
+        dispatch(setAuthUserData(id, login, email, true))
+    }
 }
 export const login = (email: string, password: string, rememberMe: false, captcha: string): ThunkType => async (dispatch) => {
 
-        await authApi.login(email, password, rememberMe, captcha)
-            .then(response => {
-                if (response.data.resultCode === ResultCodesEnum.Success) {
-                    dispatch(auth())
-                } else {
-                    let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
-                    dispatch(stopSubmit('login', {_error: message}))
-                }
-            })
+    let response = await authApi.login(email, password, rememberMe, captcha)
+    if (response.data.resultCode === ResultCodesEnum.Success) {
+        dispatch(auth())
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+        dispatch(stopSubmit('login', {_error: message}))
     }
+}
 
 export const logOut = (): ThunkType => async (dispatch) => {
-    await authApi.logOut()
-        .then(response => {
-            if (response.data.resultCode === ResultCodesEnum.Success) {
-                dispatch(setAuthUserData(null, null, null, false))
-            }
-        })
+    let response = await authApi.logOut()
+    if (response.data.resultCode === ResultCodesEnum.Success) {
+        dispatch(setAuthUserData(null, null, null, false))
+    }
 }
 
 

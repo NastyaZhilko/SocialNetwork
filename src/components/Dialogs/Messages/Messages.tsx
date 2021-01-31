@@ -4,7 +4,7 @@ type MessageItemType={
     message:string
 }
 
-const MessageItem = (props:MessageItemType) => {
+const MessageItem = React.memo((props:MessageItemType) => {
 
     return (
 
@@ -14,5 +14,5 @@ const MessageItem = (props:MessageItemType) => {
 
 
     )
-}
+})
 export default MessageItem;
