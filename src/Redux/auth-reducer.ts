@@ -14,36 +14,29 @@ let initialState = {
 }
 export const authReducers = (state = initialState, action: ActionsTypes): AuthPropsType => {
     switch (action.type) {
-        case 'SET_USER_DATA':
-            let s = {
+        case 'samurai-network/auth/SET_USER_DATA':
+            return {
                 ...state,
-                ...action.data
+                ...action.payload
             }
-
-            return s
 
         default:
             return state
     }
 }
 
-export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => {
-    return {
-        type: 'SET_USER_DATA', data: {id, email, login, isAuth}
-    } as const
-}
+export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => (
+    {type: 'samurai-network/auth/SET_USER_DATA', payload: {id, email, login, isAuth}} as const)
 
 export const auth = (): ThunkType => async (dispatch) => {
-
     let response = await authApi.me()
-
     if (response.data.resultCode === ResultCodesEnum.Success) {
         let {id, login, email} = response.data.data
         dispatch(setAuthUserData(id, login, email, true))
     }
 }
-export const login = (email: string, password: string, rememberMe: false, captcha: string): ThunkType => async (dispatch) => {
 
+export const login = (email: string, password: string, rememberMe: false, captcha: string): ThunkType => async (dispatch) => {
     let response = await authApi.login(email, password, rememberMe, captcha)
     if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(auth())

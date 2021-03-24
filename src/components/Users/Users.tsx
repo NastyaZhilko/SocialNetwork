@@ -1,38 +1,54 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from "./Users.module.css";
 import avatar1 from "../../assets/img/avatar1.png";
-import {UsersType} from "../../Redux/users_reducer";
+import {followTC, requestUsers, unFollowTC, UsersType} from "../../Redux/users_reducer";
 import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/redux-store";
 
-export type UsersPropsType = {
-    follow: (userId: number) => void,
-    unFollow: (userId: number) => void,
-    usersPage: Array<UsersType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    followingInProgress: Array<number>
-}
-let Users = (props: UsersPropsType) => {
+export type UsersPropsType = {}
+export const Users = (props:UsersPropsType) => {
+    const totalUsersCount = useSelector<AppStateType, number>((state) => state.usersPage.totalUsersCount)
+    const currentPage = useSelector<AppStateType, number>((state) => state.usersPage.currentPage)
+    const users = useSelector<AppStateType, Array<UsersType>>((state) => state.usersPage.users)
+    const pageSize = useSelector<AppStateType, number>((state) => state.usersPage.pageSize)
+    const followingInProgress = useSelector<AppStateType, Array<number>>((state) => state.usersPage.followingInProgress)
+    //const filter = useSelector<AppStateType, number>((state) => state.usersPage.)
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(requestUsers(currentPage, pageSize))
+    }, [])
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(requestUsers(pageNumber, pageSize))
+    }
+    const follow = (userId: number) => {
+        dispatch(followTC(userId))
+    }
+    const unFollow = (userId: number) => {
+        dispatch(unFollowTC(userId))
+    }
+
+    let pagesCount = Math.ceil(totalUsersCount / pageSize)
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
 
+
     return <div>
         <div>
             {pages.map(p => {
-                return <span className={props.currentPage === p ? s.selectedPage : ''}
+                return <span className={currentPage === p ? s.selectedPage : ''}
                              onClick={() => {
-                                 props.onPageChanged(p)
+                                 onPageChanged(p)
                              }}>{p}</span>
             })}
         </div>
         {
-            props.usersPage.map(u => {
+            users.map(u => {
                 return (
                     <div key={u.id}>
                <span>
@@ -43,11 +59,11 @@ let Users = (props: UsersPropsType) => {
                    </div>
                    <div>
                        {u.followed
-                           ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                               props.unFollow(u.id)
+                           ? <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                               unFollow(u.id)
                            }}>Unfollow</button>
-                           : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                               props.follow(u.id)
+                           : <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                               follow(u.id)
                            }}>Follow</button>}
                    </div>
                </span>
@@ -65,5 +81,4 @@ let Users = (props: UsersPropsType) => {
             })
         }
     </div>
-}
-export default Users;
+};

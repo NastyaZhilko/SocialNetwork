@@ -38,7 +38,7 @@ let initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you?', howManyLikes: 10},
         {id: 2, message: 'It is my first post?', howManyLikes: 15}
-    ] as Array<PostType>,
+    ] as PostType[],
     profile: null as ProfileType | null,
     status: ''
 };
