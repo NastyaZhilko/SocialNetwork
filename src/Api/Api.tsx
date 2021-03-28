@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ProfileType} from "../Redux/profile_reducer";
+import {PhotosType, ProfileType} from "../Redux/profile_reducer";
 import {UsersType} from "../Redux/users_reducer";
 
 
@@ -44,6 +44,9 @@ type MeDataType = {
 export type LoginResponseDataType = {
     userId: number
 }
+type SavePhotoResponseDataType = {
+    photos: PhotosType
+}
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
@@ -54,6 +57,7 @@ export const usersAPI = {
         return instance.delete<BaseOperationResponseType<UsersType>>(`follow/${id}`)
     },
     follow(id: number) {
+        debugger
         return instance.post<BaseOperationResponseType<UsersType>>(`follow/${id}`)
     },
     getProfile(userId: number) {
@@ -71,8 +75,18 @@ export const profileAPI = {
     },
     updateStatus(status: string) {
         return instance.put<BaseOperationResponseType<{}>>(`profile/status/`, {status})
+    },
+    savePhoto(photoFile: File) {
+        const formData = new FormData();
+        formData.append("image", photoFile);
+        return instance.put<BaseOperationResponseType<SavePhotoResponseDataType>>(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
+
 
 export const authApi = {
     me() {

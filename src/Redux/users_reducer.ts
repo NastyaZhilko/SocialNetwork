@@ -1,7 +1,7 @@
 import {ResultCodesEnum, usersAPI} from "../Api/Api";
 import {ActionsTypes, ThunkType} from "../Types/commonType";
-import {Dispatch} from "redux";
 import {updateObjectInArray} from "../Utils/objects_helper";
+import {Dispatch} from "redux";
 
 export type UsersType = {
     id: number
@@ -18,7 +18,7 @@ export type UsersPageType = typeof initialState
 
 let initialState = {
     users: [] as Array<UsersType>,
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
@@ -29,25 +29,25 @@ export const usersReducers = (state = initialState, action: ActionsTypes): Users
         case 'FOLLOW':
             return {
                 ...state,
-                /*users: updateObjectInArray(state.users, action.userId, 'id', {followed:true})*/
-                users: state.users.map(u => {
+                users: updateObjectInArray(state.users, action.userId, 'id', {followed:true})
+              /*  users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: true}
                     }
                     return u
-                })
+                })*/
             }
 
         case 'UNFOLLOW':
             return {
                 ...state,
-               /* users: updateObjectInArray(state.users, action.userId, 'id', {followed:false})*/
-                users: state.users.map(u => {
+                users: updateObjectInArray(state.users, action.userId, 'id', {followed:false})
+               /* users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: false}
                     }
                     return u
-                })
+                })*/
             }
 
         case 'SET-USERS':
@@ -109,7 +109,7 @@ export const requestUsers = (page: number, pageSize: number): ThunkType => async
 }
 
 
-export const followTC = (userId: number): ThunkType => async (dispatch) => {
+/*export const followTC = (userId: number): ThunkType => async (dispatch) => {
     dispatch(toggleFollowingInProgress(true, userId))
     let response = await usersAPI.follow(userId)
 
@@ -128,25 +128,26 @@ export const unFollowTC = (userId: number): ThunkType => async (dispatch) => {
                 dispatch(acceptUnFollow(userId))
             }
             dispatch(toggleFollowingInProgress(false, userId))
-}
+}*/
 
-/*
-const followUnFollowFlow = async (dispatch: Dispatch,
+const _followUnFollowFlow =  async (dispatch: DispatchType,
                                   userId: number,
                                   apiMethod:any,
-                                  actionCreator: any ) => {
+                                  actionCreator: (userId: number) => ReturnType<typeof acceptFollow>
+                                      | ReturnType<typeof acceptUnFollow> ) => {
     dispatch(toggleFollowingInProgress(true, userId))
-    let response = await apiMethod(usersAPI)
+    let response = await apiMethod(userId)
     if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(actionCreator(userId))
     }
     dispatch(toggleFollowingInProgress(false, userId))
 }
 
-export const follow = (userId: number): ThunkType => async (dispatch) => {
-    followUnFollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), acceptFollow)
+export const followTC = (userId: number): ThunkType => async (dispatch) => {
+    _followUnFollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), acceptFollow)
 }
 
-export const unFollow = (userId: number): ThunkType => async (dispatch) => {
-    followUnFollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), acceptUnFollow)
-}*/
+export const unFollowTC = (userId: number): ThunkType => async (dispatch) => {
+    _followUnFollowFlow(dispatch, userId, usersAPI.unFollow.bind(usersAPI), acceptUnFollow)
+}
+type DispatchType = Dispatch<ActionsTypes>

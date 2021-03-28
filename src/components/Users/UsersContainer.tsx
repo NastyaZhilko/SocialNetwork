@@ -1,8 +1,6 @@
 import React from 'react'
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-
-import loading from '../../assets/preloader.gif'
 import Preloader from "../common/Preloader/Preloader";
 import {Users} from "./Users";
 
@@ -34,7 +32,7 @@ export const UsersPage: React.FC<PropsType> = (props)=> {
 const isFetching = useSelector<AppStateType, boolean>((state)=>state.usersPage.isFetching)
         return <>
             <h2>{props.pageTitle}</h2>
-            {isFetching ? <Preloader loading={loading}/> : null}
+            {isFetching ? <Preloader /> : null}
             <Users />
         </>
 
