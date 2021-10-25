@@ -13,6 +13,7 @@ import {initializeApp} from "./Redux/app-reduser";
 import {AppStateType} from "./Redux/redux-store";
 import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./HOC/WithSuspense";
+import Footer from "./components/Footer/Footer";
 
 
 //lazy
@@ -59,12 +60,12 @@ class App extends React.Component<PropsType> {
                         <Route path='/music' component={Music}/>
                         <Route path='/news' component={News}/>
                         <Route path='/settings' component={Settings}/>
-
                         <Route path='/dialogs' render={() => <SuspendedDialogs/>}/>
                         <Route path='/profile/:userId?' render={() => <SuspendedProfile/>}/>
                         <Route path='/users' render={() => <UsersPage pageTitle={'Samurai'}/>}/>
                         <Route path='/login' render={() => <SuspendedLogin/>}/>
                     </div>
+                    <Footer/>
                 </div>
             </BrowserRouter>)
     }

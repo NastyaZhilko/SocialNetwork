@@ -1,9 +1,69 @@
 .descriptionBlock {
     padding: 10px;
+    display: flex;
+    border: 1px solid blue;
+    color: #7a7a81
 }
 
 .image {
-    max-width: 200px;
-    max-height: 200px;
+    width: 30%;
+    padding: 10px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid yellow;
+    border-radius: 8px;
+}
 
+.description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 70%;
+    background: white;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid green;
+    border-radius: 8px;
+}
+
+.item {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #e7e8ee;
+    border-radius: 10px;
+}
+
+.image img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+
+.changePhoto {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.changePhoto div {
+    height: 48px;
+    width: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.customFileUpload {
+    font-size: 18px;
+}
+
+.customFileUpload :hover {
+    color: #434347;
 }

@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import s from './Profile.module.css'
 
 type PathParamsType = {
     userId: string
@@ -52,7 +53,7 @@ class ProfileContainer extends React.Component <PropsType> {
 
     render() {
         return (
-            <div className='app-wrapper-content'>
+            <div className={s.profileContainer}>
                 <Profile
                     {...this.props}
                     isOwner={!this.props.match.params.userId}

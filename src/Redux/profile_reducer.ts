@@ -3,7 +3,7 @@ import {ActionsTypes, ThunkType} from "../Types/commonType";
 
 export type PhotosType = {
     small: string | null
-    large: string | null
+    large: string
 }
 
 export type ProfileType = {
@@ -97,6 +97,7 @@ export const savePhotoSuccess = (photos: PhotosType) => {
 
 export const getProfile = (userId: number): ThunkType => async (dispatch) => {
     let response = await usersAPI.getProfile(userId)
+    debugger
             dispatch(setUsersProfile(response.data))
 }
 

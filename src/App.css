@@ -1,25 +1,38 @@
+body{
+    margin: 0;
+    background-image: url("./assets/img/mountain.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+}
 .app-wrapper {
     display: grid;
-    width: 1200px;
-    margin: 0 auto;
+    height: 100vh;
     grid-template-areas:
 "h h"
 "n c"
-
+"f f"
 
 ;
-    grid-template-rows:  30px 1fr ;
+    grid-template-rows:  76px 1fr 80px;
     grid-template-columns: 2fr 10fr;
+
     /*grid-column-gap: 10px;*/
 }
 
 .app-wrapper-content {
     grid-area: c;
     background-color: cadetblue;
-
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin-right: 6rem;
 }
 .navigation{
     grid-area: n;
-
+    margin-left: 6rem;
+    background-color: gray;
 }
 
