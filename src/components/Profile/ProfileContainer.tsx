@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "./Profile";
-import {getProfile, getStatus, ProfileType, savePhoto, updateStatus} from "../../Redux/profile_reducer";
+import {getProfile, getStatus, ProfileType, savePhoto, saveProfile, updateStatus} from "../../Redux/profile_reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -23,6 +23,7 @@ type MapDispatchToPropsType = {
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
+    saveProfile: (formData: ProfileType)=>void
 }
 
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -61,6 +62,7 @@ class ProfileContainer extends React.Component <PropsType> {
                     status={this.props.status}
                     updateStatus={this.props.updateStatus}
                     savePhoto={this.props.savePhoto}
+                    saveProfile={this.props.saveProfile}
                 />
             </div>
         )
@@ -76,7 +78,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 
 })
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getProfile, getStatus, updateStatus, savePhoto}),
+    connect(mapStateToProps, {getProfile, getStatus, updateStatus, savePhoto, saveProfile}),
     withRouter,
     /* withAuthRedirect*/
     //не выбрасывает на логинизацию(удалить комент)

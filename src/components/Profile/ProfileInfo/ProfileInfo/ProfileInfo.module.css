@@ -6,6 +6,7 @@
 }
 
 .image {
+    max-height: 410px;
     width: 30%;
     padding: 10px;
     background: white;
@@ -66,4 +67,32 @@ input[type="file"] {
 
 .customFileUpload :hover {
     color: #434347;
+}
+
+.contact {
+    padding: 10px 0 0 10px;
+    border-bottom: 1px dashed #e7e8ee
+}
+
+.edit {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.edit button {
+    height: 40px;
+    width: 100%;
+    padding: 0;
+    color: #7a7a81;
+    font-weight: bold;
+    background: none;
+    border: 1px solid #e7e8ee;
+    border-radius: 10px;
+}
+
+.edit :hover {
+    background: #e7e8ee;
 }

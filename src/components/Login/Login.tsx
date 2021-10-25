@@ -71,5 +71,5 @@ const mapStateProps = (state: AppStateType): MapStatePropsType => ({
     captcha: state.auth.captcha
 })
 
-// @ts-ignore
-export default connect(mapStateProps, {login})(Login)
+
+export default connect(mapStateProps, {login})(LoginForm)

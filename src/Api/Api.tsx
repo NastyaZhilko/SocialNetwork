@@ -47,7 +47,9 @@ export type LoginResponseDataType = {
 type SavePhotoResponseDataType = {
     photos: PhotosType
 }
-
+type SaveProfileResponseDataType={
+    profile: ProfileType
+}
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseUserType>(`users?page=${currentPage}&count=${pageSize}`)
@@ -84,6 +86,9 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    saveProfile (profile: ProfileType){
+        return instance.put<BaseOperationResponseType<SaveProfileResponseDataType>>(`profile` , profile)
     }
 }
 
