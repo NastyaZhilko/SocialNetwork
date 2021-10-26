@@ -10,7 +10,7 @@ import ProfileDataForm from "../ProfileDataForm/ProfileDataForm";
 
 type PropsType = {
     isOwner: boolean
-    profile: ProfileType
+    profile: ProfileType| null
     status: string
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
@@ -85,7 +85,7 @@ type ContactsPropsType = {
 export const Contact: React.FC<ContactsPropsType> = ({contactTitle, contactValue}) => {
     return (
         <div>
-            {(contactValue != "" && contactValue !=null) &&
+            {(contactValue !== "" && contactValue !=null) &&
             <div className={s.contact}>
 
                 <b>{contactTitle}</b>:<a href={contactValue} target={'blank'}>{contactValue}</a>

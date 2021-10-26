@@ -1,21 +1,19 @@
 .descriptionBlock {
-    padding: 10px;
     display: flex;
-    border: 1px solid blue;
-    color: #7a7a81
+    color: #7a7a81;
+    padding-bottom: 20px;
 }
 
 .image {
     max-height: 410px;
     width: 30%;
     padding: 10px;
-    background: white;
+    background:  #e2d6dc;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid yellow;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .description {
@@ -23,17 +21,16 @@
     flex-direction: column;
     justify-content: space-around;
     width: 70%;
-    background: white;
-    margin-left: 10px;
+    background:  #e2d6dc;
+    margin-left: 20px;
     padding: 10px;
-    border: 1px solid green;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .item {
     padding: 10px;
     margin: 10px;
-    border: 1px solid #e7e8ee;
+    border: 1px solid #c0a7d9;
     border-radius: 10px;
 }
 
@@ -89,10 +86,10 @@ input[type="file"] {
     color: #7a7a81;
     font-weight: bold;
     background: none;
-    border: 1px solid #e7e8ee;
+    border: 1px solid #c0a7d9;
     border-radius: 10px;
 }
 
 .edit :hover {
-    background: #e7e8ee;
+    background: #c0a7d9;
 }

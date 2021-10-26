@@ -11,7 +11,7 @@ export const FormControl: React.FC<FormControlType> = ({meta:{touched, error},ch
     const hasError = touched && error
     return (
         <div className={styles.formControl + ' ' + (hasError ? styles.error : '')}>
-            <div>
+            <div className={styles.formControls}>
                 {children}
             </div>
             {hasError && <span>{error}</span>}
@@ -38,7 +38,7 @@ export function createField<FormKeysType extends string>(placeholder: string | u
                                                          validators: Array<FieldValidatorType>,
                                                          component: React.FC<WrappedFieldProps>,
                                                          props = {}, text = "") {
-    return <div>
+    return <div >
         <Field placeholder={placeholder} name={name}
                validate={validators}
                component={component}

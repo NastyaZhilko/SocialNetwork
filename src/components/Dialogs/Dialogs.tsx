@@ -20,7 +20,7 @@ const Dialogs = React.memo((props: OneDialogsType) => {
     let dialogsElements =
         props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} img={d.img}/>)
     let messageElements =
-        props.dialogsPage.messages.map(m => <MessageItem message={m.message}/>)
+        props.dialogsPage.messages.map(m => <div className={s.messages}><MessageItem message={m.message}/></div>)
 
 
     let addNewMessage = (value:any) => {
@@ -31,13 +31,15 @@ const Dialogs = React.memo((props: OneDialogsType) => {
             <div className={s.dialogItems}>
                 {dialogsElements}
             </div>
+
             <div className={s.messages}>
                 <div>{messageElements}</div>
+            </div>
+
+            <div className={s.messages}>
                 <div>
                     <MessageReduxForm onSubmit={addNewMessage}/>
                 </div>
-            </div>
-            <div className={s.messages}>
             </div>
         </div>
     )

@@ -51,7 +51,6 @@ export const usersReducers = (state = initialState, action: ActionsTypes): Users
             }
 
         case 'SET-USERS':
-            debugger
             return {...state, users: action.users}
 
         case 'SET-CURRENT-PAGE':

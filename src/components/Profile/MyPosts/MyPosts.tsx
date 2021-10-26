@@ -17,7 +17,7 @@ const MyPosts = React.memo((props: MyPostsType) => {
     let postElements =
         props.profilePage.posts.map(p => <Post id={p.id} message={p.message} howManyLikes={p.howManyLikes}/>)
 
-    const addNewPost = (value:any) => {
+    const addNewPost = (value: any) => {
         props.addPostCallback(value.newPostText)
     }
 
@@ -35,15 +35,15 @@ const MyPosts = React.memo((props: MyPostsType) => {
 type FormDataType = {
     newPostText: string
 }
-const maxLength10=maxLengthCreator(10)
+const maxLength10 = maxLengthCreator(10)
 const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div>
+            <div className={s.edit}>
                 <Field name={'newPostText'} component={Textarea} placeholder={'Post message'}
-                validate={[required, maxLength10, minLength2]}/>
+                       validate={[required, maxLength10, minLength2]} className={s.input}/>
             </div>
-            <div>
+            <div className={s.edit}>
                 <button>Add post</button>
             </div>
         </form>

@@ -1,16 +1,20 @@
 
 .dialogs {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+    display: flex;
+
 
 }
 
 .dialog {
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .message {
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .messages {

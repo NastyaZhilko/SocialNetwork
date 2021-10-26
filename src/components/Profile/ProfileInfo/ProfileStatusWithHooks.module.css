@@ -1,8 +1,11 @@
 .profileStatus{
     padding: 10px;
     margin: 10px;
-    border: 1px solid #e7e8ee;
+    border: 1px solid #c0a7d9;
     border-radius: 10px;
+}
+.profileStatus:hover{
+    background-color: #c0a7d9;
 }
 .profileStatus input{
 }

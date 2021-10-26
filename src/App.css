@@ -1,12 +1,12 @@
 body {
-    background-image: url("./assets/img/mountain.jpg");
+  /*  background-image: url("./assets/img/mountain.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
-    background-color: #464646;
+    background-size: cover;*/
     margin: 0;
-    /*background: linear-gradient(45deg, #abbacc, #EAB6C1) no-repeat;*/
+    background-color: white;
+   /* background: linear-gradient(45deg, white, #c4c2c2) no-repeat;*/
 }
 
 .app-wrapper {
@@ -17,23 +17,23 @@ body {
 "n c"
 "f f";
     grid-template-rows:  48px 1fr 48px;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 3fr 9fr;
 
     /*grid-column-gap: 10px;*/
 }
 
 .app-wrapper-content {
     grid-area: c;
-    background-color: cadetblue;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
-    margin-right: 6rem;
+    border-radius: 10px;
+    margin: 20px 179px 20px 10px;
 }
 
 .navigation {
+    background-color:  #e2d6dc;
     grid-area: n;
-    margin-left: 6rem;
-    background-color: gray;
+    margin: 20px 10px 20px 179px;
+    border-radius: 10px;
 }
 

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import {Paginator} from "../common/Paginator/Paginator";
 import {User} from "./User";
+import s from "./Users.module.css"
 
 type PropsType = {}
 export const Users: React.FC<PropsType> = ({}) => {
@@ -31,10 +32,10 @@ export const Users: React.FC<PropsType> = ({}) => {
     }
 
     return (
-        <div>
+        <div className={s.block}>
             <Paginator currentPage={currentPage} onPageChanged={onPageChanged} pageSize={pageSize}
                        totalItemCount={totalUsersCount}/>
-            <div>
+            <div className={s.usersBlock}>
                 {
                     users.map(u => <User
                         user={u}

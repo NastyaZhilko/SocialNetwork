@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
 import Preloader from "../common/Preloader/Preloader";
 import {Users} from "./Users";
+import s from "./Users.module.css"
 
 
 //export type PropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
@@ -30,12 +31,11 @@ export type PropsType ={
 }
 export const UsersPage: React.FC<PropsType> = (props)=> {
 const isFetching = useSelector<AppStateType, boolean>((state)=>state.usersPage.isFetching)
-        return <>
+        return <div className={s.mainBlock}>
             <h2>{props.pageTitle}</h2>
             {isFetching ? <Preloader /> : null}
             <Users />
-        </>
-
+        </div>
 }
 
 /*
