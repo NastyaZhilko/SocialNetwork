@@ -1,6 +1,6 @@
 import React from 'react'
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../common/FormControls/FormControls";
+import {createField, Input} from "../common/FormControls/FormControls";
 import {required} from "../../Utils/validators";
 import {connect} from "react-redux";
 import {login} from "../../Redux/auth-reducer";
@@ -25,7 +25,10 @@ type MapStatePropsType = {
 type LoginFormOwnProps = {
     captcha: string | null
 }
-const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit,error}) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnProps> & LoginFormOwnProps> = (
+    {handleSubmit,
+        error,
+    captcha}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -43,6 +46,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnProps> & L
             {error && <div className={style.formSummaryError}>
                 {error}
             </div>}
+            {captcha && <img src={captcha}/>}
+            {captcha &&
+            createField('Symbols from image', 'captcha', [required], Input)
+            }
+
             <div>
                 <button>Login</button>
             </div>
@@ -52,6 +60,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType, LoginFormOwnProps> & L
 }
 
 const LoginReduxForm = reduxForm<FormDataType, LoginFormOwnProps>({form: 'login'})(LoginForm)
+
 const Login: React.FC<MapDispatchPropsType & MapStatePropsType> = (props) => {
     const onSubmit = (formData: FormDataType) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
@@ -71,5 +80,5 @@ const mapStateProps = (state: AppStateType): MapStatePropsType => ({
     captcha: state.auth.captcha
 })
 
-
-export default connect(mapStateProps, {login})(LoginForm)
+// @ts-ignore
+export default connect(mapStateProps, {login})(Login)

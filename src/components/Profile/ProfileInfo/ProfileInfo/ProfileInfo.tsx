@@ -14,7 +14,7 @@ type PropsType = {
     status: string
     updateStatus: (status: string) => void
     savePhoto: (file: File) => void
-    saveProfile: (formData: ProfileType) => Promise<ProfileType>
+    saveProfile: (formData: ProfileType) => Promise<any>
 }
 
 const ProfileInfo: React.FC<PropsType> = ({

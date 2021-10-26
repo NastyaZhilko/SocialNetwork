@@ -1,21 +1,21 @@
-body{
-    margin: 0;
+body {
     background-image: url("./assets/img/mountain.jpg");
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     background-color: #464646;
+    margin: 0;
+    /*background: linear-gradient(45deg, #abbacc, #EAB6C1) no-repeat;*/
 }
+
 .app-wrapper {
     display: grid;
     height: 100vh;
     grid-template-areas:
 "h h"
 "n c"
-"f f"
-
-;
+"f f";
     grid-template-rows:  48px 1fr 48px;
     grid-template-columns: 2fr 10fr;
 
@@ -30,7 +30,8 @@ body{
     border: 1px solid black;
     margin-right: 6rem;
 }
-.navigation{
+
+.navigation {
     grid-area: n;
     margin-left: 6rem;
     background-color: gray;

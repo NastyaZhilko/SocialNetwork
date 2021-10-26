@@ -50,6 +50,9 @@ type SavePhotoResponseDataType = {
 type SaveProfileResponseDataType={
     profile: ProfileType
 }
+type CaptchaResponseDataType = {
+    url: string
+}
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<ResponseUserType>(`users?page=${currentPage}&count=${pageSize}`)
@@ -97,7 +100,7 @@ export const authApi = {
     me() {
         return instance.get<BaseOperationResponseType<MeDataType>>(`auth/me`)
     },
-    login(email: string, password: string, rememberMe: false, captcha: string) {
+    login(email: string, password: string, rememberMe: boolean, captcha: null|string) {
         return instance.post<BaseOperationResponseType<LoginResponseDataType>>(`auth/login`, {
             email,
             password,
@@ -107,5 +110,11 @@ export const authApi = {
     },
     logOut() {
         return instance.delete(`auth/login`)
+    }
+}
+
+export const securityAPI  = {
+    getCaptchaUrl() {
+        return instance.get<CaptchaResponseDataType>(`security/get-captcha-url`)
     }
 }

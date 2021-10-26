@@ -8,7 +8,7 @@ import {
     setUsers, toggleFollowingInProgress,
     toggleIsFetching
 } from "../Redux/users_reducer";
-import {setAuthUserData} from "../Redux/auth-reducer";
+import {getCaptchaUrlSuccess, setAuthUserData} from "../Redux/auth-reducer";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../Redux/redux-store";
 import {stopSubmit} from "redux-form";
@@ -30,6 +30,7 @@ export type ActionsTypes =
     | ReturnType<typeof setStatus>
     | ReturnType<typeof savePhotoSuccess>
     | ReturnType<typeof initializedSuccess>
+    | ReturnType<typeof getCaptchaUrlSuccess>
 
 
 export const actions={

@@ -15,7 +15,7 @@ const Header: React.FC<HeaderPropsType> = React.memo(({isAuth, login, logOut, ph
 
     return <header className={s.header}>
         <div>
-            <img src='https://flosium.ru/imagehost/158/med_kak-razvivaetsya-cvetok-gerbery-v-domashnih-usloviyah.jpg'/>
+            <h2>Social Network</h2>
         </div>
         <div className={s.loginBlock}>
             {isAuth

@@ -1,7 +1,7 @@
-import React, { Suspense } from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import NavBar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import Music from "./components/Navbar/Music/Music";
 import News from "./components/Navbar/News/News";
 import Settings from "./components/Navbar/Settings/Settings";
@@ -28,10 +28,10 @@ export const SuspendedLogin = withSuspense(Login);
 
 type MapDispatchToPropsType = {
     initializeApp: () => void
-    initialized:boolean
+    initialized: boolean
 }
 type MapStateToPropsType = {
-    initialized:boolean
+    initialized: boolean
 }
 
 type OwnPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -44,19 +44,20 @@ class App extends React.Component<PropsType> {
     }
 
     render() {
-        if(!this.props.initialized){
+        if (!this.props.initialized) {
             // @ts-ignore
-            return <Preloader />
+            return <Preloader/>
         }
         return (
-            <BrowserRouter>
-                <div className='app-wrapper'>
-                    <HeaderContainer/>
-                    <div className='navigation'>
-                        <NavBar/>
-                        {/*<Sidebar />*/}
-                    </div>
-                    <div className='app-wrapper-content'>
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <div className='navigation'>
+                    <NavBar/>
+                    {/*<Sidebar />*/}
+                </div>
+                <div className='app-wrapper-content'>
+
+                        <Redirect from ='/' to='/profile'/>
                         <Route path='/music' component={Music}/>
                         <Route path='/news' component={News}/>
                         <Route path='/settings' component={Settings}/>
@@ -64,14 +65,15 @@ class App extends React.Component<PropsType> {
                         <Route path='/profile/:userId?' render={() => <SuspendedProfile/>}/>
                         <Route path='/users' render={() => <UsersPage pageTitle={'Samurai'}/>}/>
                         <Route path='/login' render={() => <SuspendedLogin/>}/>
-                    </div>
-                    <Footer/>
+
                 </div>
-            </BrowserRouter>)
+                <Footer/>
+            </div>)
     }
 }
-const MapStateToProps=(state:AppStateType):MapStateToPropsType=>({
-    initialized:state.app.initialized
+
+const MapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+    initialized: state.app.initialized
 })
 
 export default compose<React.ComponentType>(
