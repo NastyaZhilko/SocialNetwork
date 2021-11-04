@@ -20,11 +20,13 @@ import Footer from "./components/Footer/Footer";
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 const Login = React.lazy(() => import("./components/Login/Login"));
+const ChatPage = React.lazy(() => import("./pages/ChatPage/ChatPage"));
 
 //suspended
 export const SuspendedDialogs = withSuspense(DialogsContainer);
 export const SuspendedProfile = withSuspense(ProfileContainer);
 export const SuspendedLogin = withSuspense(Login);
+export const SuspendedChatPage = withSuspense(ChatPage);
 
 type MapDispatchToPropsType = {
     initializeApp: () => void
@@ -65,6 +67,7 @@ class App extends React.Component<PropsType> {
                         <Route path='/profile/:userId?' render={() => <SuspendedProfile/>}/>
                         <Route path='/users' render={() => <UsersPage pageTitle={'Samurai'}/>}/>
                         <Route path='/login' render={() => <SuspendedLogin/>}/>
+                        <Route path='/chat' render={() => <SuspendedChatPage/>}/>
 
                 </div>
                 <Footer/>

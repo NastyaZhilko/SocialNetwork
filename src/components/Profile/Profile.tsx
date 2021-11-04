@@ -12,7 +12,6 @@ export type ProfilePropsType = {
     saveProfile: (formData: ProfileType)=>Promise<any>
 }
 const Profile = (props: ProfilePropsType) => {
-    console.log('profile')
     return (
         <div >
             {props.profile && <ProfileInfo
